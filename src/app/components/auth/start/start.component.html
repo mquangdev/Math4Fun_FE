@@ -1,0 +1,36 @@
+<div class="h-screen w-screen bg-blue-900 py-4 flex flex-col justify-evenly">
+  <div class="px-28">
+    <div class="text-white text-[40px] font-semibold">Math4Fun</div>
+  </div>
+  <div class="flex items-center justify-evenly">
+    <img src="./../../../assets/images/earth.svg" alt="" />
+    <div class="flex flex-col space-y-3 items-center">
+      <div class="text-[35px] text-white font-semibold">
+        Học toán miễn phí vui nhộn hiệu quả !
+      </div>
+      <div class="flex flex-col gap-y-5">
+        <app-button
+          routerLink="/login"
+          [bgButton]="'rgb(74 222 128)'"
+          [edge]="'rgb(22 163 74)'"
+          [prefix]="prefix1"
+          text="Đăng nhập"
+          width="350px"
+        ></app-button>
+        <app-button
+          [routerLink]="['/sign-up']"
+          text="Đăng ký tài khoản"
+          [prefix]="prefix2"
+          width="350px"
+        ></app-button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #prefix1>
+  <i class="fa-solid fa-arrow-right-to-bracket"></i>
+  <!-- <img width="40px" src="./../../../assets/icons/ic-google.png" alt="" /> -->
+</ng-template>
+<ng-template #prefix2>
+  <i class="fa-solid fa-user-plus"></i>
+</ng-template>

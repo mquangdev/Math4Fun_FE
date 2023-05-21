@@ -1,0 +1,39 @@
+<div class="flex items-center justify-between py-5 px-6">
+  <i
+    routerLink="/start"
+    class="fa-solid fa-xmark text-3xl text-gray-400 cursor-pointer"
+  ></i>
+  <app-button
+    routerLink="/sign-up"
+    text="Đăng ký"
+    [fontSize]="16"
+    [padding]="'10px 30px'"
+    [bgButton]="'rgb(243 244 246)'"
+    [textColor]="'rgb(14 165 233)'"
+    edge="rgb(156 163 175)"
+  ></app-button>
+</div>
+<div class="w-[380px] text-center mx-auto">
+  <div class="text-3xl font-bold mb-6">Đăng nhập</div>
+  <div class="flex flex-col gap-y-3 mb-5">
+    <div class="input">
+      <input type="text" placeholder="Email hoặc tên đăng nhập" />
+    </div>
+    <div class="input flex items-center justify-between">
+      <input type="text" placeholder="Mật khẩu" />
+      <span
+        routerLink="/forgot-pw"
+        class="font-semibold text-gray-400 hover:opacity-50"
+        >Quên?</span
+      >
+    </div>
+  </div>
+  <app-button
+    text="Đăng nhập"
+    padding="8px 10px"
+    width="380px"
+    bgButton="#1cb0f6"
+    edge="#1899d6"
+  ></app-button>
+  <div class="my-3">Hoặc</div>
+</div>

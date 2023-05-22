@@ -15,4 +15,5 @@ export class ButtonComponent {
   @Input() fontSize!: number;
   @Input() padding!: string;
   @Input() textColor!: string;
+  @Input() disabled: boolean = false;
 }

@@ -15,21 +15,44 @@
 </div>
 <div class="w-[380px] text-center mx-auto">
   <div class="text-3xl font-bold mb-6">Tạo hồ sơ</div>
-  <div class="flex flex-col gap-y-3 mb-5">
+  <form [formGroup]="form" class="flex flex-col gap-y-3 mb-5">
     <div class="input">
-      <input type="text" placeholder="Tên" />
+      <input formControlName="fullname" type="text" placeholder="Tên" />
     </div>
     <div class="input">
-      <input type="text" placeholder="Tuổi" />
+      <input
+        formControlName="dob"
+        name="date"
+        type="text"
+        onfocus="(this.type='date')"
+        onblur="if(!this.value)this.type='text'"
+        placeholder="Ngày sinh"
+      />
     </div>
     <div class="input">
-      <input type="email" placeholder="Email" />
+      <input
+        formControlName="username"
+        type="text"
+        placeholder="Tên đăng nhập"
+      />
     </div>
     <div class="input">
-      <input type="password" placeholder="Mật khẩu" />
+      <input
+        formControlName="password"
+        type="password"
+        placeholder="Mật khẩu"
+      />
     </div>
-  </div>
+    <div class="input">
+      <input
+        formControlName="repw"
+        type="password"
+        placeholder="Nhập lại mật khẩu"
+      />
+    </div>
+  </form>
   <app-button
+    (click)="signIn()"
     text="Tạo tài khoản"
     padding="8px 10px"
     width="380px"

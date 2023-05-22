@@ -1,14 +1,12 @@
 import {
+  animate,
+  state,
   style,
   transition,
   trigger,
-  animate,
-  state,
 } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import Lottie from 'lottie-web';
-import LottiePlayer from 'lottie-web';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

@@ -15,25 +15,61 @@
 </div>
 <div class="w-[380px] text-center mx-auto">
   <div class="text-3xl font-bold mb-6">Đăng nhập</div>
-  <div class="flex flex-col gap-y-3 mb-5">
+  <form [formGroup]="form" class="flex flex-col gap-y-3 mb-5">
     <div class="input">
-      <input type="text" placeholder="Email hoặc tên đăng nhập" />
+      <input formControlName="username" type="text" placeholder="Tài khoản" />
     </div>
     <div class="input flex items-center justify-between">
-      <input type="text" placeholder="Mật khẩu" />
+      <input
+        formControlName="password"
+        type="password"
+        placeholder="Mật khẩu"
+      />
       <span
         routerLink="/forgot-pw"
-        class="font-semibold text-gray-400 hover:opacity-50"
+        class="font-semibold text-gray-400 hover:opacity-50 cursor-pointer"
         >Quên?</span
       >
     </div>
-  </div>
+  </form>
   <app-button
+    [disabled]="!form.valid"
+    (click)="login()"
     text="Đăng nhập"
     padding="8px 10px"
     width="380px"
     bgButton="#1cb0f6"
     edge="#1899d6"
   ></app-button>
-  <div class="my-3">Hoặc</div>
+  <div class="my-5 flex items-center">
+    <span class="h-[1.5px] bg-gray-300 w-full"></span>
+    <span class="text-gray-300 font-semibold text-base mx-2">Hoặc</span>
+    <span class="h-[1.5px] bg-gray-300 w-full"></span>
+  </div>
+  <div class="grid grid-cols-2">
+    <app-button
+      text="Facebook"
+      [fontSize]="16"
+      [padding]="'10px 30px'"
+      [bgButton]="'rgb(243 244 246)'"
+      [textColor]="'#3b5998'"
+      [prefix]="fb"
+      edge="#e5e5e5"
+    ></app-button>
+    <app-button
+      text="Google"
+      [fontSize]="16"
+      [padding]="'10px 30px'"
+      [bgButton]="'rgb(243 244 246)'"
+      [textColor]="'#3b5998'"
+      [prefix]="gg"
+      edge="#e5e5e5"
+    ></app-button>
+  </div>
 </div>
+<ng-template #fb>
+  <i class="fa-brands fa-facebook-f text-[#3b5998]"></i>
+</ng-template>
+<ng-template #gg>
+  <i class="fa-brands fa-google text-[#3b5998]"></i>
+</ng-template>

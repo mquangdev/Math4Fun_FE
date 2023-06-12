@@ -1,0 +1,27 @@
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <thead
+      class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+    >
+      <tr>
+        <th scope="col" class="px-6 py-3" *ngFor="let header of headers">
+          {{ header }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let row of data"
+        class="bg-white border-b dark:bg-gray-900 dark:border-gray-700"
+      >
+        <ng-container
+          [ngTemplateOutlet]="rows || defaultRow"
+          [ngTemplateOutletContext]="{ $implicit: row }"
+        ></ng-container>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #defaultRow let-row>
+  <td *ngFor="let col of row | keyvalue" class="px-6 py-4">{{ col.value }}</td>
+</ng-template>

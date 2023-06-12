@@ -1,0 +1,15 @@
+.course {
+  position: relative;
+  &-remove {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    cursor: pointer;
+    display: none;
+  }
+  &:hover {
+    .course-remove {
+      display: block;
+    }
+  }
+}

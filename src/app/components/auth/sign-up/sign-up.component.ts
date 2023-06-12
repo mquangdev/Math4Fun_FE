@@ -16,6 +16,7 @@ export class SignUpComponent {
     password: ['', [Validators.required]],
     fullname: ['', [Validators.required]],
     repw: ['', [Validators.required]],
+    email: ['', [Validators.required]],
   });
   constructor(
     private fb: FormBuilder,
@@ -28,8 +29,9 @@ export class SignUpComponent {
     let body = {
       username: this.form.get('username')?.value,
       fullname: this.form.get('fullname')?.value,
-      dob: this.form.get('dob')?.value,
+      dob: this.form.get('dob')?.value + 'T15:38:01.139Z',
       password: this.form.get('password')?.value,
+      email: this.form.get('email')?.value,
     };
     if (this.form.invalid) {
       this.noti.warning('Bạn chưa nhập đủ các trường');

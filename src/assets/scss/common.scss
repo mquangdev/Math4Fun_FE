@@ -1,0 +1,3 @@
+.border-hover {
+  @apply hover:bg-[#f7f7f7] rounded-xl cursor-pointer text-center py-3 px-6 border-[2px] border-solid hover:border-[#84d8ff] hover:text-[#1cb0f6] flex flex-col items-center;
+}

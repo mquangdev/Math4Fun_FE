@@ -1,4 +1,4 @@
-<div class="flex items-center justify-between py-5 px-6">
+<div class="flex items-center justify-between py-3 px-6">
   <i
     routerLink="/start"
     class="fa-solid fa-xmark text-3xl text-gray-400 cursor-pointer"
@@ -28,6 +28,9 @@
         onblur="if(!this.value)this.type='text'"
         placeholder="Ngày sinh"
       />
+    </div>
+    <div class="input">
+      <input formControlName="email" type="email" placeholder="Email" />
     </div>
     <div class="input">
       <input

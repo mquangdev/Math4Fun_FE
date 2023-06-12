@@ -1,0 +1,35 @@
+<button (click)="addCourse()" class="btn-primary my-3">Thêm khóa học</button>
+<!-- <app-table [headers]="['STT', 'Tên khóa học', 'Chỉnh sửa']" [data]="data">
+  <ng-template #rows let-row>
+    <td class="px-6 py-4">
+      {{ row.stt }}
+    </td>
+    <td class="px-6 py-4">
+      {{ row.name }}
+    </td>
+    <td class="px-6 py-4">
+      <i class="fa-solid fa-pen-to-square text-lg hover:opacity-70"></i>
+    </td>
+  </ng-template>
+</app-table> -->
+<div class="flex gap-x-4">
+  <div
+    [routerLink]="['detail', course.id]"
+    *ngFor="let course of listCourses"
+    class="hover:bg-[#f7f7f7] rounded-xl cursor-pointer text-center py-3 px-6 border-[2px] border-solid hover:border-[#84d8ff] hover:text-[#1cb0f6] flex flex-col items-center course"
+  >
+    <img
+      class="w-24 h-24 rounded-md object-cover"
+      [src]="course.image || loadFailImg"
+      alt=""
+    />
+    <div class="text-xl mt-2">{{ course.name }}</div>
+    <div class="text-gray-400">{{ course.totalMember || 0 }} người học</div>
+    <div
+      (click)="remove(course.id); $event.stopPropagation()"
+      class="course-remove text-lg"
+    >
+      <i class="fa-solid fa-circle-xmark"></i>
+    </div>
+  </div>
+</div>

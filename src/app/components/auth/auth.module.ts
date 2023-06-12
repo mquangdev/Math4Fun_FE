@@ -8,7 +8,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ForgotPwComponent } from './forgot-pw/forgot-pw.component';
 
 @NgModule({
-  imports: [CommonModule, ReuseableModule, SharedModule],
-  declarations: [StartComponent, SignUpComponent, LoginComponent, ForgotPwComponent],
+  imports: [SharedModule],
+  declarations: [
+    StartComponent,
+    SignUpComponent,
+    LoginComponent,
+    ForgotPwComponent,
+  ],
 })
 export class AuthModule {}

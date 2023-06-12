@@ -4,7 +4,11 @@
 @import "tailwindcss/utilities";
 @import "animate.css";
 @import "./../node_modules/ng-zorro-antd/ng-zorro-antd.min.css";
+@import "./../node_modules/ng-zorro-antd/button/style/index.min.css";
+@import "./../node_modules/ng-zorro-antd/style/index.min.css";
 @import "./assets/scss/reuseable.scss";
+@import "./assets/scss/common.scss";
+
 * {
   font-family: "Itim", cursive;
 }
@@ -26,7 +30,7 @@ button:disabled {
 
 .btn {
   &-primary {
-    @apply bg-primary text-white  flex items-center w-fit;
+    @apply bg-primary text-white  flex items-center w-fit px-3 py-2 rounded-md hover:opacity-70 text-lg;
   }
 }
 

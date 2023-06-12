@@ -1,0 +1,42 @@
+<div class="mb-3">Ảnh khóa học</div>
+<div
+  *ngIf="image"
+  class="border border-solid border-gray-400 w-24 h-24 flex items-center justify-center rounded-md image"
+>
+  <img class="rounded-md" [src]="image" width="100%" height="100%" alt="" />
+  <i
+    (click)="remove()"
+    class="fa-solid fa-circle-xmark text-lg image-cancel"
+  ></i>
+</div>
+<app-upload-image
+  *ngIf="!image"
+  (change$)="onChange($event)"
+></app-upload-image>
+<form
+  nz-form
+  [nzLayout]="'vertical'"
+  [formGroup]="form"
+  style="margin-top: 9px"
+>
+  <nz-form-item>
+    <nz-form-label nzRequired>Tên khóa học</nz-form-label>
+    <nz-form-control nzErrorTip="Trường này là bắt buộc">
+      <input nz-input formControlName="name" placeholder="Nhập tên khóa học" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzRequired>Mô tả khóa học</nz-form-label>
+    <nz-form-control nzErrorTip="Trường này là bắt buộc">
+      <textarea
+        nz-input
+        formControlName="description"
+        placeholder="Nhập mô tả khóa học"
+      ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="cancel()">Hủy</button>
+  <button nz-button nzType="primary" (click)="submitForm()">Thêm</button>
+</div>

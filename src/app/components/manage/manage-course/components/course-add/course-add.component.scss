@@ -1,0 +1,15 @@
+.image {
+  position: relative;
+  &-cancel {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    cursor: pointer;
+    display: none;
+  }
+  &:hover {
+    .image-cancel {
+      display: block;
+    }
+  }
+}

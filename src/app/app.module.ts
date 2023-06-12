@@ -1,4 +1,4 @@
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { NgModule } from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -12,23 +12,27 @@ import { ComponentsModule } from './components/components.module';
 import { SharedModule } from './shared/shared.module';
 import { checkLoginGuard } from './guard/checkLoginGuard';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { NzModalService } from 'ng-zorro-antd/modal';
 registerLocaleData(en);
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    AppRoutingModule,
+    SharedModule,
+    BrowserAnimationsModule,
     NzInputModule,
     NzCardModule,
     NzListModule,
-    SharedModule,
-    ComponentsModule,
-    AuthModule,
+    AppRoutingModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     checkLoginGuard,
     NzMessageService,
+    NzModalService,
   ],
   bootstrap: [AppComponent],
 })

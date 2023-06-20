@@ -44,19 +44,30 @@
   </form>
   <div class="my-3">
     <div class="mb-2">Các chương học</div>
-    <button nz-button nzType="primary" class="mb-3">Thêm chương học</button>
-    <div *ngFor="let chapter of course.chapterList" class="flex items-center">
-      <div class="border-hover chapter">
-        <div class="text-xl mt-2">{{ chapter.title }}</div>
-        <div class="text-gray-400">{{ chapter.subTile }}</div>
+    <button (click)="addChapter()" nz-button nzType="primary" class="mb-3">
+      Thêm chương học
+    </button>
+    <ng-container *ngIf="course">
+      <div class="flex items-center gap-x-3">
         <div
-          (click)="removeChapter(chapter.id); $event.stopPropagation()"
-          class="chapter-remove text-lg"
+          *ngFor="let chapter of course.chapterList"
+          class="flex items-center"
+          (click)="detailChapter()"
+          [routerLink]="['/main/manage-course/chapter', chapter.id]"
         >
-          <i class="fa-solid fa-circle-xmark"></i>
+          <div class="border-hover chapter">
+            <div class="text-xl mt-2">{{ chapter.title }}</div>
+            <div class="text-gray-400">{{ chapter.subTile }}</div>
+            <div
+              (click)="removeChapter(chapter.id); $event.stopPropagation()"
+              class="chapter-remove text-lg"
+            >
+              <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </ng-container>
   </div>
   <div class="text-end">
     <button nz-button nzType="default" (click)="cancel()" class="mr-3">

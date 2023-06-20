@@ -3,3 +3,10 @@
   border: 3px solid #84d8ff;
   color: #1cb0f6;
 }
+.view-option {
+  display: none;
+}
+
+.view:hover .view-option {
+  display: block;
+}

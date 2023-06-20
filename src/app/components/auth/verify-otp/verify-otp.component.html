@@ -1,0 +1,68 @@
+<div class="grid grid-cols-6 gap-x-2 items-center">
+  <div class="grow">
+    <div class="border-hover h-20 w-full" style="padding: 4px">
+      <input
+        [(ngModel)]="c1"
+        type="number"
+        class="w-full h-full text-4xl inputs"
+      />
+    </div>
+  </div>
+  <div class="grow">
+    <div class="border-hover h-20 w-full" style="padding: 4px">
+      <input
+        [(ngModel)]="c2"
+        type="number"
+        class="w-full h-full text-4xl inputs"
+      />
+    </div>
+  </div>
+  <div class="grow">
+    <div class="border-hover h-20 w-full" style="padding: 4px">
+      <input
+        [(ngModel)]="c3"
+        type="number"
+        class="w-full h-full text-4xl inputs"
+      />
+    </div>
+  </div>
+  <div class="grow">
+    <div class="border-hover h-20 w-full" style="padding: 4px">
+      <input
+        [(ngModel)]="c4"
+        type="number"
+        class="w-full h-full text-4xl inputs"
+      />
+    </div>
+  </div>
+  <div class="grow">
+    <div class="border-hover h-20 w-full" style="padding: 4px">
+      <input
+        [(ngModel)]="c5"
+        type="number"
+        class="w-full h-full text-4xl inputs"
+      />
+    </div>
+  </div>
+  <div class="grow">
+    <div class="border-hover h-20 w-full" style="padding: 4px">
+      <input
+        [(ngModel)]="c6"
+        type="number"
+        class="w-full h-full text-4xl inputs"
+      />
+    </div>
+  </div>
+</div>
+<div class="flex items-center justify-end mt-5">
+  <button
+    (click)="resend()"
+    [disabled]="counter > 0"
+    nz-button
+    nzType="default"
+    class="mr-3"
+  >
+    Gửi lại ({{ counter }}s)
+  </button>
+  <button nz-button nzType="primary" (click)="submit()">Gửi</button>
+</div>

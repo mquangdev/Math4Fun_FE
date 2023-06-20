@@ -1,0 +1,20 @@
+<div class="flex flex-col gap-y-3">
+  <input
+    nz-input
+    placeholder="Nhập mật khẩu"
+    [(ngModel)]="pw"
+    type="password"
+  />
+  <input
+    nz-input
+    placeholder="Nhập lại mật khẩu"
+    [(ngModel)]="rePw"
+    type="password"
+  />
+</div>
+<div class="flex items-center justify-end mt-3">
+  <button nz-button nzType="default" class="mr-3" (click)="cancel()">
+    Hủy
+  </button>
+  <button nz-button nzType="primary" (click)="ok()">Lưu</button>
+</div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from 'src/app/services/course.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { CourseAddComponent } from '../course-add/course-add.component';
+import { CourseAddComponent } from '../course/course-add/course-add.component';
 import { NotiService } from 'src/app/services/noti.service';
 @Component({
   selector: 'app-course-manage',

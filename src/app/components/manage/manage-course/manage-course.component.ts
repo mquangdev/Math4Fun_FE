@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { CourseService } from 'src/app/services/course.service';
-import { NzModalService } from 'ng-zorro-antd/modal';
-import { CourseAddComponent } from './components/course-add/course-add.component';
+import { Component } from '@angular/core';
+import { RightBarService } from 'src/app/services/right-bar.service';
 @Component({
   selector: 'app-manage-course',
   templateUrl: './manage-course.component.html',
   styleUrls: ['./manage-course.component.scss'],
 })
-export class ManageCourseComponent {}
+export class ManageCourseComponent {
+  constructor(private rightbarService: RightBarService) {
+    this.rightbarService.setIsShowRightBar(false);
+  }
+}

@@ -1,0 +1,150 @@
+<app-header text="Thêm mới câu hỏi"></app-header>
+<div class="flex flex-col mt-5">
+  <form [formGroup]="form" nz-form nzLayout="vertical">
+    <nz-form-item>
+      <nz-form-label nzRequired>Kiểu câu hỏi</nz-form-label>
+      <nz-form-control nzErrorTip="Trường này là bắt buộc">
+        <nz-select
+          class="w-fit"
+          nzPlaceHolder="Chọn kiểu câu hỏi"
+          style="width: 200px !important"
+          [(ngModel)]="typeQuestion"
+          [ngModelOptions]="{ standalone: true }"
+        >
+          <nz-option
+            *ngFor="let option of questionType"
+            [nzValue]="option.value"
+            [nzLabel]="option.text"
+          ></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <div class="border-b-2 border-primary border-solid mb-2"></div>
+    <div [ngSwitch]="typeQuestion">
+      <div *ngSwitchCase="QuestionType.chooseAnswer">
+        <nz-form-item>
+          <nz-form-label nzRequired>Câu hỏi</nz-form-label>
+          <nz-form-control>
+            <mathjax [content]="mathContent"></mathjax>
+            <textarea
+              placeholder="Nhập câu hỏi"
+              style="margin-top: 8px !important"
+              rows="2"
+              nz-input
+              [(ngModel)]="mathContent"
+              [ngModelOptions]="{ standalone: true }"
+            ></textarea>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>Đáp án đúng</nz-form-label>
+          <nz-form-control>
+            <nz-radio-group>
+              <label
+                *ngFor="let answer of listAnswer"
+                nz-radio
+                [nzValue]="answer.value"
+              >
+                <mathjax [content]="answer.value || ''"></mathjax>
+              </label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzRequired>Đáp án</nz-form-label>
+          <button
+            (click)="addAnswer()"
+            class="w-fit"
+            nz-button
+            nzShape="circle"
+            nzSize="large"
+            nzType="primary"
+          >
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <div *ngFor="let answer of listAnswer; index as i">
+            <div class="grid grid-cols-5 items-center gap-x-2 mt-2">
+              <div class="flex items-center col-span-2">
+                <div class="mr-1">Đáp án {{ i + 1 }}:</div>
+                <mathjax [content]="answer.value || ''"></mathjax>
+              </div>
+              <textarea
+                class="col-span-2"
+                placeholder="Nhập đáp án"
+                rows="1"
+                nz-input
+                [(ngModel)]="answer.value"
+                [ngModelOptions]="{ standalone: true }"
+              ></textarea>
+              <div
+                (click)="remove(answer)"
+                class="col-span-1 text-center text-lg cursor-pointer hover:text-red-500"
+              >
+                <i class="fa-solid fa-trash-can"></i>
+              </div>
+            </div>
+          </div>
+        </nz-form-item>
+      </div>
+      <div *ngSwitchCase="QuestionType.choosePair">
+        <nz-form-item>
+          <nz-form-label nzRequired>Các cặp</nz-form-label>
+          <div
+            *ngFor="let answer of listPair; index as i"
+            class="flex items-center gap-x-2 mb-2"
+          >
+            <div class="font-semibold">Cặp {{ i + 1 }}</div>
+            <div>
+              <mathjax [content]="answer.text || ''"></mathjax>
+              <span *ngIf="answer.text && answer.value" class="mx-3">Với</span>
+              <mathjax [content]="answer.value || ''"></mathjax>
+            </div>
+          </div>
+          <button
+            (click)="addPair()"
+            class="w-fit"
+            nz-button
+            nzShape="circle"
+            nzSize="large"
+            nzType="primary"
+          >
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <div *ngFor="let answer of listPair; index as i">
+            <div class="grid grid-cols-6 items-center gap-x-2 mt-2">
+              <div class="grid grid-cols-3 items-center col-span-3">
+                <div class="mr-1 col-span-1">Cặp {{ i + 1 }}:</div>
+                <textarea
+                  class="col-span-2"
+                  placeholder="Nhập câu hỏi"
+                  rows="1"
+                  nz-input
+                  [(ngModel)]="answer.text"
+                  [ngModelOptions]="{ standalone: true }"
+                ></textarea>
+              </div>
+              <textarea
+                class="col-span-2"
+                placeholder="Nhập đáp án"
+                rows="1"
+                nz-input
+                [(ngModel)]="answer.value"
+                [ngModelOptions]="{ standalone: true }"
+              ></textarea>
+              <div
+                (click)="remove(answer)"
+                class="col-span-1 text-center text-lg cursor-pointer hover:text-red-500"
+              >
+                <i class="fa-solid fa-trash-can"></i>
+              </div>
+            </div>
+          </div>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="mt-3 text-end">
+  <button nz-button nzType="default" class="mr-3">Hủy</button>
+  <button nz-button nzType="primary" (click)="submitForm()">Thêm</button>
+</div>

@@ -1,0 +1,42 @@
+<app-header text="Chi tiết bài học"></app-header>
+<div class="p-3">
+  <form
+    nz-form
+    [nzLayout]="'vertical'"
+    [formGroup]="form"
+    style="margin-top: 9px"
+  >
+    <nz-form-item>
+      <nz-form-label nzRequired>Tên bài học</nz-form-label>
+      <nz-form-control nzErrorTip="Trường này là bắt buộc">
+        <input
+          nz-input
+          formControlName="title"
+          placeholder="Nhập tên bài học"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired>Số kinh nghiệm thưởng</nz-form-label>
+      <nz-form-control nzErrorTip="Trường này là bắt buộc">
+        <input
+          type="number"
+          nz-input
+          formControlName="expGained"
+          placeholder="Nhập số kinh nghiệm thưởng"
+          min="0"
+        />
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <div>
+    <div>Các câu hỏi:</div>
+    <button nz-button nzType="primary" class="mt-2" (click)="addQuestion()">
+      Thêm câu hỏi
+    </button>
+  </div>
+  <div class="mt-3 gap-x-3 flex justify-end items-center">
+    <button nz-button nzType="default" (click)="cancel()">Hủy</button>
+    <button nz-button nzType="primary" (click)="submitForm()">Lưu</button>
+  </div>
+</div>

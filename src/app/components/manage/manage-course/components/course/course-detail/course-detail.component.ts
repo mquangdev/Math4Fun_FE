@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { CourseService } from 'src/app/services/course.service';
 import { NotiService } from 'src/app/services/noti.service';
 import { UploadService } from 'src/app/services/upload.service';
+import { ChapterAddComponent } from '../../chapter/chapter-add/chapter-add.component';
+import { ChapterService } from 'src/app/services/chapter.service';
+import { KeyStorage } from 'src/app/enums/storage.enums';
 
 @Component({
   selector: 'app-course-detail',
@@ -27,13 +30,19 @@ export class CourseDetailComponent implements OnInit {
     private courseService: CourseService,
     private noti: NotiService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private modal: NzModalService,
+    private chapterService: ChapterService
   ) {}
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.id = params['id'];
       this.detailCourse();
     });
+  }
+
+  detailChapter() {
+    localStorage.setItem(KeyStorage.course_id, this.id);
   }
 
   async submitForm() {
@@ -83,7 +92,17 @@ export class CourseDetailComponent implements OnInit {
     this.isEmptyImage = true;
   }
 
-  removeChapter(id: string) {}
+  removeChapter(id: string) {
+    this.chapterService.delete(id).subscribe(
+      (data) => {
+        this.noti.success();
+        this.detailCourse();
+      },
+      (error) => {
+        this.noti.warning();
+      }
+    );
+  }
 
   detailCourse() {
     this.courseService.detailCourse(this.id).subscribe((data) => {
@@ -94,6 +113,21 @@ export class CourseDetailComponent implements OnInit {
       });
       this.image = data.image;
       if (!this.image) this.isEmptyImage = true;
+    });
+  }
+
+  addChapter() {
+    const modal = this.modal.create({
+      nzContent: ChapterAddComponent,
+      nzTitle: 'Thêm mới chương học',
+      nzCentered: true,
+      nzFooter: null,
+      nzComponentParams: {
+        courseId: this.id,
+      },
+    });
+    modal.afterClose.subscribe((data) => {
+      if (data) this.detailCourse();
     });
   }
 }

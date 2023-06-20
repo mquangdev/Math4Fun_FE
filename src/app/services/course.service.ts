@@ -24,4 +24,13 @@ export class CourseService {
   delete(id: string): Observable<any> {
     return this.http.delete(this.URL + '/Delete?courseId=' + id);
   }
+  getDetailCourseByUserId(userId: string, courseId: string): Observable<any> {
+    return this.http.get(
+      this.URL +
+        '/GetDetailCourseByUserId?userId=' +
+        userId +
+        '&courseId=' +
+        courseId
+    );
+  }
 }

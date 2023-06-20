@@ -1,0 +1,90 @@
+<div class="mt-6 flex items-center justify-evenly" *ngIf="user">
+  <div
+    nz-dropdown
+    nzTrigger="click"
+    [nzDropdownMenu]="menu"
+    class="uppercase p-2 hover:bg-gray-50 rounded-2xl text-black hover:text-black text-base w-fit"
+  >
+    <div *ngIf="listCourse.length === 0" class="w-fit">Chưa có khóa học</div>
+    <div
+      *ngIf="listCourse.length > 0"
+      class="flex items-center py-2 px-3 rounded-lg"
+    >
+      <img class="mr-2" width="30px" [src]="courseSelected.image" alt="" />
+      <div>{{ courseSelected.name }}</div>
+    </div>
+    <span nz-icon nzType="down"></span>
+  </div>
+  <div
+    nz-dropdown
+    [nzDropdownMenu]="streakMenu"
+    class="hover:bg-gray-50 rounded-2xl px-3 py-2"
+  >
+    <img src="./../../../../../assets/icons/ic-streak.svg" alt="" />
+  </div>
+  <div
+    nz-dropdown
+    [nzDropdownMenu]="lingoutMenu"
+    class="hover:bg-gray-50 rounded-2xl px-3 py-2 text-red-500 flex items-center"
+  >
+    <img src="./../../../../../assets/icons/ic-gem.svg" alt="" />
+    <span class="font-semibold ml-2">{{ user.totalGem || 0 }}</span>
+  </div>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <div style="padding: 8px !important">
+      <ul nz-menu nzSelectable>
+        <div class="uppercase text-base px-3 py-2 text-gray-400 cursor-pointer">
+          Các khóa học
+        </div>
+        <li
+          *ngFor="let course of listCourse"
+          nz-menu-item
+          style="
+            padding: 0px 0px !important;
+            padding-left: 0px;
+            padding-right: 0px;
+          "
+        >
+          <div
+            [ngClass]="{
+              'text-blue-500 bg-blue-100 font-semibold': course.isSelected
+            }"
+            class="flex items-center w-full px-3 py-2"
+          >
+            <img class="mr-2" width="30px" [src]="course.image" alt="" />
+            <div class="text-base">{{ course.name }}</div>
+          </div>
+        </li>
+        <div
+          (click)="addCourse()"
+          class="text-base px-3 py-2 text-gray-400 cursor-pointer flex items-center hover:bg-gray-100"
+        >
+          <div class="px-2 py-1 border rounded-md border-solid mr-2">
+            <i class="fa-solid fa-plus"></i>
+          </div>
+          <span>Thêm khóa học mới</span>
+        </div>
+      </ul>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #streakMenu="nzDropdownMenu">
+    <div>123123</div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #lingoutMenu="nzDropdownMenu">
+    <div
+      class="w-72 bg-white border-[2px] border-solid rounded-lg p-3 border-gray-500 flex items-center gap-x-2"
+    >
+      <img src="./../../../../../assets/images/img-treasure.svg" alt="" />
+      <div class="flex flex-col gap-y-2">
+        <div class="text-2xl font-semibold">Lingots</div>
+        <div>Bạn có {{ user.totalGem || 0 }} lingot</div>
+        <div
+          [routerLink]="['/main/shop']"
+          class="uppercase text-blue-400 font-semibold text-base cursor-pointer hover:opacity-70"
+        >
+          Đến cửa hàng
+        </div>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+</div>

@@ -1,27 +1,46 @@
-<button [disabled]="disabled" class="button-82-pushable" role="button">
-  <span class="button-82-shadow"></span>
+<button
+  [ngStyle]="{ 'border-radius': isRounded ? '100%' : '12px' }"
+  [disabled]="disabled"
+  class="button-82-pushable"
+  role="button"
+>
   <span
-    [ngStyle]="{ background: edge ? edge : '' }"
+    [ngStyle]="{ 'border-radius': isRounded ? '100%' : '12px' }"
+    class="button-82-shadow"
+  ></span>
+  <span
+    [ngStyle]="{
+      'border-radius': isRounded ? '100%' : '12px',
+      background: edge && isRounded ? getDarkerColor(edge) : edge,
+    }"
     class="button-82-edge"
   ></span>
   <span
     [ngStyle]="{
       background: bgButton ? bgButton : '',
-      width: width,
-      padding: padding ? padding : ''
+      width: !isRounded ? width : '70px',
+      padding: padding && !isRounded ? padding : '8px 16px',
+      height: !isRounded ? 'fit-content' : '60px',
+       'border-radius': isRounded ? '100%' : '12px',
     }"
     class="button-82-front text"
   >
-    <div class="flex items-center gap-x-3">
+    <div *ngIf="!isCustom" class="flex items-center gap-x-3">
       <ng-container [ngTemplateOutlet]="prefix"></ng-container>
       <span
         class="w-full font-semibold"
         [ngStyle]="{
           'font-size': fontSize ? fontSize + 'px' : '',
-          color: textColor ? textColor : ''
+          color: textColor ? textColor : '',
         }"
         >{{ text }}</span
       >
+    </div>
+    <div
+      *ngIf="isCustom && content"
+      class="flex items-center justify-center h-full"
+    >
+      <ng-container [ngTemplateOutlet]="content"></ng-container>
     </div>
   </span>
 </button>

@@ -17,4 +17,19 @@ export class AuthService {
   sigIn(body: any): Observable<any> {
     return this.http.post(this.auth_url + '/Create', body);
   }
+
+  forgotPw(email: string): Observable<any> {
+    return this.http.post(this.auth_url + '/ForgotPw?email=' + email, {});
+  }
+
+  checkOTP(email: string, otp: string): Observable<any> {
+    return this.http.post(
+      this.auth_url + '/CheckOTP?otp=' + otp + '&email=' + email,
+      {}
+    );
+  }
+
+  changePw(body: any): Observable<any> {
+    return this.http.post(this.auth_url + '/ChangePw', body);
+  }
 }

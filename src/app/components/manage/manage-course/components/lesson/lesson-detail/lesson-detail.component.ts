@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { KeyStorage } from 'src/app/enums/storage.enums';
 import { LessonService } from 'src/app/services/lesson.service';
 import { NotiService } from 'src/app/services/noti.service';
 import { QuestionAddComponent } from '../../question/question-add/question-add.component';
+import { QuestionService } from 'src/app/services/question.service';
 
 @Component({
   selector: 'app-leson-detail',
@@ -19,13 +20,15 @@ export class LessonDetailComponent implements OnInit {
   });
   public lessonId: string = '';
   public chapterId: string = '';
+  public lesson: any;
   constructor(
     private fb: FormBuilder,
     private noti: NotiService,
     private lessonService: LessonService,
     private router: Router,
     private route: ActivatedRoute,
-    private modal: NzModalService
+    private modal: NzModalService,
+    private questionService: QuestionService
   ) {}
   ngOnInit(): void {
     this.chapterId = localStorage.getItem(KeyStorage.chapter_id)!;
@@ -37,6 +40,7 @@ export class LessonDetailComponent implements OnInit {
 
   detailLesson() {
     this.lessonService.detail(this.lessonId).subscribe((data) => {
+      this.lesson = data;
       this.form.patchValue({
         title: data.title,
         expGained: data.expGained,
@@ -85,5 +89,29 @@ export class LessonDetailComponent implements OnInit {
     //     overflowY: 'auto',
     //   },
     // });
+  }
+
+  detailQuestion(question: any) {
+    const queryParams: NavigationExtras = {
+      queryParams: {
+        type: question.type,
+      },
+    };
+    this.router.navigate(
+      ['/main/manage-course/question', question.id],
+      queryParams
+    );
+  }
+
+  removeQuestion(questionId: string) {
+    this.questionService.removeQuestion(questionId).subscribe(
+      (data) => {
+        this.noti.success();
+        this.detailLesson();
+      },
+      (err) => {
+        this.noti.warning();
+      }
+    );
   }
 }

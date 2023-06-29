@@ -7,6 +7,9 @@ import { RightBarService } from 'src/app/services/right-bar.service';
 })
 export class ManageCourseComponent {
   constructor(private rightbarService: RightBarService) {
-    this.rightbarService.setIsShowRightBar(false);
+    this.rightbarService.setIsShowBar({
+      left: true,
+      right: false,
+    });
   }
 }

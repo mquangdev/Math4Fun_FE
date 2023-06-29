@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RightBarService } from 'src/app/services/right-bar.service';
 
 @Component({
   selector: 'app-manage',
@@ -26,6 +27,12 @@ export class ManageComponent {
       icon: './../../../assets/icons/ic-shop.svg',
     },
   ];
+  constructor(private rightBarService: RightBarService) {
+    this.rightBarService.setIsShowBar({
+      left: true,
+      right: false,
+    });
+  }
 }
 
 export class Detail {

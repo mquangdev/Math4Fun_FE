@@ -1,10 +1,13 @@
 <div class="flex min-h-screen">
-  <app-sidebar class="w-[255px]"></app-sidebar>
-  <div style="width: calc(100vw - 510px)" class="px-3">
+  <app-sidebar
+    *ngIf="(isShowBar$ | async)?.left"
+    class="w-[255px]"
+  ></app-sidebar>
+  <div #main class="py-3">
     <router-outlet></router-outlet>
   </div>
   <app-right-bar
-    *ngIf="isShowRightBar$ | async"
+    *ngIf="(isShowBar$ | async)?.right"
     style="height: 100vh"
     class="w-[350px]"
   ></app-right-bar>

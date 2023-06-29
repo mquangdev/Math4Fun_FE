@@ -32,7 +32,6 @@ export class MathjaxComponent implements OnInit, OnChanges {
     //setInterval(()=>{},1)
     let angObj = this;
     setTimeout(() => {
-      console.log('1234');
       angObj.mathJaxObject.Hub.Queue(
         ['Typeset', angObj.mathJaxObject.Hub],
         'mathContent'
@@ -40,8 +39,6 @@ export class MathjaxComponent implements OnInit, OnChanges {
     }, 1000);
   }
   loadMathConfig() {
-    console.log('load config');
-
     this.mathJaxObject = this.gs.nativeGlobal()['MathJax'];
     this.mathJaxObject.Hub.Config({
       showMathMenu: false,

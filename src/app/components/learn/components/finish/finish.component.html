@@ -1,0 +1,58 @@
+<div class="w-full flex flex-col items-center gap-y-4">
+  <img
+    style="height: 300px !important"
+    src="./../../../../../assets/images/img-finish.png"
+    alt=""
+  />
+  <div class="font-semibold text-[#ffc800] text-2xl">
+    Chúc mừng bạn đã hoàn thành bài học
+  </div>
+  <div class="text-xl text-gray-400">
+    Bạn đã hoàn thành bài học trong {{ time }} phút
+  </div>
+  <div class="flex items-center gap-x-2">
+    <div
+      class="border-solid border-[1.5px] border-[#ffc800] rounded-2xl overflow-hidden w-[200px]"
+    >
+      <div
+        class="uppercase text-white bg-[#ffc800] px-4 text-center font-semibold"
+      >
+        Tổng điểm KN
+      </div>
+      <div class="flex items-center gap-x-2 px-4 py-6 justify-center">
+        <img src="./../../../../../assets/icons/ic-exp.svg" alt="" />
+        <span class="font-semibold text-lg text-[#ffc800]">
+          {{ totalExp }}
+        </span>
+      </div>
+    </div>
+    <div
+      class="border-solid border-[1.5px] border-[#58cc02] rounded-2xl overflow-hidden w-[200px]"
+    >
+      <div
+        class="uppercase text-white bg-[#58cc02] px-4 text-center font-semibold"
+      >
+        Chính xác !
+      </div>
+      <div class="flex items-center gap-x-2 px-4 py-6 justify-center">
+        <img
+          src="./../../../../../assets/icons/ic-percent-correct.svg"
+          alt=""
+        />
+        <span class="font-semibold text-lg text-[#58cc02]">
+          {{ percentCorrect }} %
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="mt-5">
+    <app-button
+      (click)="continue()"
+      text="Tiếp tục"
+      [bgButton]="'#58cc02'"
+      edge="#58a700"
+      width="400px"
+    >
+    </app-button>
+  </div>
+</div>

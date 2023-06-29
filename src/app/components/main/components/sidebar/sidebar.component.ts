@@ -12,6 +12,8 @@ import { UserService } from 'src/app/services/user.service';
 export class SidebarComponent implements OnInit {
   public role: number = 0;
   public listSidebar: Sidebar[] = [];
+  public anoAvatar: string =
+    './../../../../../assets/images/img-avatar-ano.png';
   constructor(private userService: UserService, private router: Router) {}
   ngOnInit(): void {
     this.userService
@@ -36,6 +38,11 @@ export class SidebarComponent implements OnInit {
             text: 'Cửa hàng',
             icon: './../../../../../assets/icons/ic-shop.svg',
             routerLink: '/main/shop',
+          },
+          {
+            text: 'Hồ sơ',
+            icon: data.avatar ? data.avatar : this.anoAvatar,
+            routerLink: '/main/profile',
           },
         ];
         if (this.role === 1) {

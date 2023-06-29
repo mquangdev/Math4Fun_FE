@@ -32,6 +32,10 @@
         [ngStyle]="{
           'font-size': fontSize ? fontSize + 'px' : '',
           color: textColor ? textColor : '',
+         
+        }"
+        [ngClass]="{
+          uppercase: isUppercase
         }"
         >{{ text }}</span
       >

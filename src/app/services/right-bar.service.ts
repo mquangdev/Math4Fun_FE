@@ -5,10 +5,18 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class RightBarService {
-  private rightBarSubject = new BehaviorSubject<boolean>(true);
-  public isShowRightBar$ = this.rightBarSubject.asObservable();
+  private barSubject = new BehaviorSubject<Bar>({
+    right: true,
+    left: true,
+  });
+  public isShowBar$ = this.barSubject.asObservable();
   constructor() {}
-  setIsShowRightBar(value: boolean) {
-    this.rightBarSubject.next(value);
+  setIsShowBar(value: Bar) {
+    this.barSubject.next(value);
   }
+}
+
+export class Bar {
+  right?: boolean = true;
+  left?: boolean = true;
 }

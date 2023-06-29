@@ -20,10 +20,16 @@ export class CourseRegisterComponent implements OnInit, OnDestroy {
     private noti: NotiService
   ) {}
   ngOnDestroy(): void {
-    this.rightBarService.setIsShowRightBar(true);
+    this.rightBarService.setIsShowBar({
+      left: true,
+      right: true,
+    });
   }
   ngOnInit(): void {
-    this.rightBarService.setIsShowRightBar(false);
+    this.rightBarService.setIsShowBar({
+      left: true,
+      right: false,
+    });
     this.getAllCourse();
     this.getAllCourseByUserId();
   }

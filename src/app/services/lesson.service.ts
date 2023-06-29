@@ -21,4 +21,7 @@ export class LessonService {
   update(body: any): Observable<any> {
     return this.http.post(this.URL + '/Update', body);
   }
+  changeStatusLesson(body: any): Observable<any> {
+    return this.http.post(this.URL + '/UpdateStatusLessonByUser', body);
+  }
 }

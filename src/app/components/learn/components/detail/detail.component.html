@@ -1,0 +1,123 @@
+<ng-container *ngIf="!isFinish">
+  <div class="pt-1 w-full text-center" *ngIf="totalQuestion">
+    <div (click)="close()" class="text-left p-1 px-10 cursor-pointer">
+      <i class="fa-solid fa-xmark text-2xl text-[#afafaf] hover:opacity-70"></i>
+    </div>
+    <nz-progress
+      [nzPercent]="(countTrueQuestion * 100) / totalQuestion"
+      [nzStatus]="'success'"
+      [nzStrokeWidth]="20"
+      [nzShowInfo]="false"
+    ></nz-progress>
+  </div>
+  <ng-container *ngIf="questionNow" [ngSwitch]="questionNow.type">
+    <div
+      *ngIf="questionNow.isWrong"
+      class="text-[#ff9600] font-semibold mt-5 w-[60%] mx-auto flex items-center"
+    >
+      <div
+        class="bg-[#ff9600] mr-2 w-[25px] h-[25px] rounded-full flex items-center justify-center"
+      >
+        <i class="fa-solid fa-rotate text-white"></i>
+      </div>
+      <span class="uppercase">Lỗi sai trước đây</span>
+    </div>
+    <div
+      *ngSwitchCase="QuestionType.chooseAnswer"
+      class="w-full flex items-center justify-center"
+    >
+      <div class="pt-3 pb-6 w-[60%] h-[70vh]">
+        <div class="text-4xl font-semibold">
+          <mathjax [content]="questionNow.text"></mathjax>
+        </div>
+        <div class="grid-cols-2 grid gap-3 mt-32">
+          <!-- {{ questionNow | json }} -->
+          <div
+            (click)="selectAnswer($event.target, answer)"
+            class="answer-button"
+            *ngFor="let answer of questionNow.answerList; index as i"
+          >
+            <div class="answer-button-index">{{ i + 1 }}</div>
+            <div class="text-center grow">
+              <mathjax [content]="answer.value"> </mathjax>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container>
+    <div class="w-full border-solid border-t-2">
+      <div *ngIf="!isChecked" class="w-full px-28 py-5 text-end">
+        <button
+          *ngIf="!isSelected"
+          class="bg-[#e5e5e5] py-3 px-8 rounded-2xl uppercase text-[#afafaf] font-semibold"
+        >
+          Kiểm tra
+        </button>
+        <app-button
+          (click)="checkAnswer()"
+          *ngIf="isSelected"
+          text="Kiểm tra"
+          bgButton="#58cc02"
+          edge="#58a700"
+          padding="8px 40px"
+        >
+        </app-button>
+      </div>
+      <div *ngIf="isChecked" class="w-full">
+        <div
+          *ngIf="isTrue"
+          class="px-28 py-5 text-end bg-[#d7ffb8] flex items-center justify-between"
+        >
+          <div class="flex items-center gap-x-3">
+            <div
+              class="flex items-center justify-center w-[80px] h-[80px] bg-white rounded-full"
+            >
+              <img src="./../../../../../assets/icons/ic-check.svg" alt="" />
+            </div>
+            <div class="text-[#58a700] text-2xl font-bold">Chính xác!</div>
+          </div>
+          <app-button
+            (click)="nextQuestion()"
+            text="Tiếp tục"
+            bgButton="#58cc02"
+            edge="#58a700"
+            padding="8px 40px"
+            [isUppercase]="true"
+          >
+          </app-button>
+        </div>
+        <div
+          *ngIf="!isTrue"
+          class="px-28 py-5 text-end bg-[#ffdfe0] flex items-center justify-between"
+        >
+          <div class="flex items-center gap-x-3">
+            <div
+              class="flex items-center justify-center w-[80px] h-[80px] bg-white rounded-full"
+            >
+              <img src="./../../../../../assets/icons/ic-wrong.svg" alt="" />
+            </div>
+            <div class="text-[#ea2b2b] text-2xl font-bold">Chưa chính xác!</div>
+          </div>
+          <app-button
+            (click)="nextQuestion()"
+            text="Tiếp tục"
+            bgButton="#ff4b4b"
+            edge="#ea2b2b"
+            padding="8px 40px"
+            [isUppercase]="true"
+          >
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+<ng-container *ngIf="isFinish">
+  <app-finish
+    [totalExp]="expGained"
+    [time]="time"
+    [percentCorrect]="percentCorrect"
+  ></app-finish>
+</ng-container>

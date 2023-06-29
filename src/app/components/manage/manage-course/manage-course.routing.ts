@@ -6,6 +6,7 @@ import { ChapterDetailComponent } from './components/chapter/chapter-detail/chap
 import { LessonDetailComponent } from './components/lesson/lesson-detail/lesson-detail.component';
 import { CourseRegisterComponent } from './components/course/course-register/course-register.component';
 import { QuestionAddComponent } from './components/question/question-add/question-add.component';
+import { QuestionDetailComponent } from './components/question/question-detail/question-detail.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
       {
         path: 'question-add',
         component: QuestionAddComponent,
+      },
+      {
+        path: 'question/:id',
+        component: QuestionDetailComponent,
       },
     ],
   },

@@ -8,6 +8,9 @@ import { RightBarService } from 'src/app/services/right-bar.service';
 })
 export class LearnComponent {
   constructor(private righbarService: RightBarService) {
-    this.righbarService.setIsShowRightBar(true);
+    this.righbarService.setIsShowBar({
+      left: true,
+      right: true,
+    });
   }
 }

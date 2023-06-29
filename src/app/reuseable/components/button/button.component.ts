@@ -18,6 +18,7 @@ export class ButtonComponent {
   @Input() disabled: boolean = false;
   @Input() isRounded: boolean = false;
   @Input() isCustom: boolean = false;
+  @Input() isUppercase: boolean = false;
   @ContentChild('content') content!: TemplateRef<any>;
   getDarkerColor(originalColor: string): string {
     // Convert hexadecimal to RGB

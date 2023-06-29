@@ -19,19 +19,19 @@
         </nz-select>
       </nz-form-control>
     </nz-form-item>
-    <div class="border-b-2 border-primary border-solid mb-2"></div>
+    <div class="border-b-[1.5px] border-primary border-solid mb-2"></div>
     <div [ngSwitch]="typeQuestion">
       <div *ngSwitchCase="QuestionType.chooseAnswer">
         <nz-form-item>
           <nz-form-label nzRequired>Câu hỏi</nz-form-label>
           <nz-form-control>
-            <mathjax [content]="mathContent"></mathjax>
+            <mathjax [content]="textQuestion"></mathjax>
             <textarea
               placeholder="Nhập câu hỏi"
               style="margin-top: 8px !important"
               rows="2"
               nz-input
-              [(ngModel)]="mathContent"
+              [(ngModel)]="textQuestion"
               [ngModelOptions]="{ standalone: true }"
             ></textarea>
           </nz-form-control>
@@ -39,11 +39,11 @@
         <nz-form-item>
           <nz-form-label nzRequired>Đáp án đúng</nz-form-label>
           <nz-form-control>
-            <nz-radio-group>
+            <nz-radio-group formControlName="answer">
               <label
                 *ngFor="let answer of listAnswer"
                 nz-radio
-                [nzValue]="answer.value"
+                [nzValue]="answer"
               >
                 <mathjax [content]="answer.value || ''"></mathjax>
               </label>

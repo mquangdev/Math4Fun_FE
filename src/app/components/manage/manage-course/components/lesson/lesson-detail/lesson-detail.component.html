@@ -34,6 +34,23 @@
     <button nz-button nzType="primary" class="mt-2" (click)="addQuestion()">
       Thêm câu hỏi
     </button>
+    <div class="flex items-center gap-x-3 mt-3" *ngIf="lesson">
+      <div
+        *ngFor="let question of lesson.questionList; index as i"
+        class="flex items-center"
+        (click)="detailQuestion(question)"
+      >
+        <div class="border-hover question">
+          <div class="text-xl mt-2">Câu hỏi {{ i + 1 }}</div>
+          <div
+            (click)="removeQuestion(question.id); $event.stopPropagation()"
+            class="question-remove text-lg"
+          >
+            <i class="fa-solid fa-circle-xmark"></i>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="mt-3 gap-x-3 flex justify-end items-center">
     <button nz-button nzType="default" (click)="cancel()">Hủy</button>

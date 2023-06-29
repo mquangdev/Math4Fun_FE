@@ -1,22 +1,52 @@
-import { Component } from '@angular/core';
-import { RightBarService } from 'src/app/services/right-bar.service';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
+import { Bar, RightBarService } from 'src/app/services/right-bar.service';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent {
-  public isShowRightBar$ = this.rightBarService.isShowRightBar$;
-  withHaveRighbar = '{width: calc(100vw - 510px)}';
-  withDontHaveRighbar = '{width: calc(100vw - 255px)}';
-  constructor(private rightBarService: RightBarService) {}
+export class MainComponent implements OnInit, AfterViewInit {
+  public isShowBar$ = this.rightBarService.isShowBar$;
+  @ViewChild('main') mainElement!: ElementRef;
+
+  constructor(
+    private rightBarService: RightBarService,
+    private renderer: Renderer2
+  ) {}
+  ngOnInit(): void {}
+  ngAfterViewInit(): void {
+    this.getStyleMain();
+  }
   getStyleMain() {
-    this.isShowRightBar$.subscribe((data) => {
-      if (data) {
-        return 'calc(100vw - 510px)';
-      } else {
-        return 'calc(100vw - 255px)';
+    this.isShowBar$.subscribe((isShow: Bar) => {
+      if (isShow.left && isShow.right) {
+        this.renderer.setStyle(
+          this.mainElement.nativeElement,
+          'width',
+          'calc(100vw - 510px)'
+        );
+      }
+      if (isShow.left && !isShow.right) {
+        this.renderer.setStyle(
+          this.mainElement.nativeElement,
+          'width',
+          'calc(100vw - 255px)'
+        );
+      }
+      if (!isShow.left && !isShow.right) {
+        this.renderer.setStyle(
+          this.mainElement.nativeElement,
+          'width',
+          '100vw'
+        );
       }
     });
   }

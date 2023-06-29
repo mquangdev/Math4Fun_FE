@@ -1,4 +1,4 @@
-<div *ngIf="!isSelected" class="grid grid-cols-4 w-full mt-10">
+<div *ngIf="!isSelected" class="grid grid-cols-4 w-full mt-10 px-3">
   <ng-container
     class="col-span-1"
     *ngFor="let item of manageList"
@@ -17,6 +17,6 @@
     <div class="text-2xl mt-2">{{ item.text }}</div>
   </div>
 </ng-template>
-<div *ngIf="isSelected">
+<div *ngIf="isSelected" class="px-3">
   <router-outlet></router-outlet>
 </div>

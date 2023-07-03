@@ -42,6 +42,20 @@
       >
         <div class="border-hover question">
           <div class="text-xl mt-2">Câu hỏi {{ i + 1 }}</div>
+          <ng-container>
+            <div *ngIf="question.type === QuestionType.chooseAnswer">
+              Câu hỏi - lựa chọn
+            </div>
+            <div *ngIf="question.type === QuestionType.choosePair">
+              Chọn cặp phù hợp
+            </div>
+            <div *ngIf="question.type === QuestionType.chooseToBlank">
+              Chọn đáp án vào chỗ trống
+            </div>
+            <div *ngIf="question.type === QuestionType.typeToBlank">
+              Chọn đáp án vào chỗ trống
+            </div>
+          </ng-container>
           <div
             (click)="removeQuestion(question.id); $event.stopPropagation()"
             class="question-remove text-lg"

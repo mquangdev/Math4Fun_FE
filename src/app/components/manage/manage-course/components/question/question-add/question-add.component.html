@@ -87,59 +87,47 @@
         </nz-form-item>
       </div>
       <div *ngSwitchCase="QuestionType.choosePair">
-        <nz-form-item>
-          <nz-form-label nzRequired>Các cặp</nz-form-label>
-          <div
-            *ngFor="let answer of listPair; index as i"
-            class="flex items-center gap-x-2 mb-2"
-          >
-            <div class="font-semibold">Cặp {{ i + 1 }}</div>
-            <div>
-              <mathjax [content]="answer.text || ''"></mathjax>
-              <span *ngIf="answer.text && answer.value" class="mx-3">Với</span>
-              <mathjax [content]="answer.value || ''"></mathjax>
-            </div>
-          </div>
-          <button
-            (click)="addPair()"
-            class="w-fit"
-            nz-button
-            nzShape="circle"
-            nzSize="large"
-            nzType="primary"
-          >
-            <i class="fa-solid fa-plus"></i>
-          </button>
-          <div *ngFor="let answer of listPair; index as i">
-            <div class="grid grid-cols-6 items-center gap-x-2 mt-2">
-              <div class="grid grid-cols-3 items-center col-span-3">
-                <div class="mr-1 col-span-1">Cặp {{ i + 1 }}:</div>
-                <textarea
-                  class="col-span-2"
-                  placeholder="Nhập câu hỏi"
-                  rows="1"
-                  nz-input
-                  [(ngModel)]="answer.text"
-                  [ngModelOptions]="{ standalone: true }"
-                ></textarea>
-              </div>
-              <textarea
-                class="col-span-2"
-                placeholder="Nhập đáp án"
-                rows="1"
-                nz-input
-                [(ngModel)]="answer.value"
-                [ngModelOptions]="{ standalone: true }"
-              ></textarea>
+        <div class="text-xl font-semibold flex items-center gap-x-3">
+          <span>Chọn cặp phù hợp</span>
+          <i
+            (click)="addAnswer()"
+            class="fa-solid fa-circle-plus text-3xl hover:opacity-70 cursor-pointer"
+          ></i>
+        </div>
+        <div class="flex flex-col gap-y-2">
+          <ng-container *ngFor="let pair of listAnswer">
+            <div class="grid grid-cols-2 gap-x-5 mt-3">
               <div
-                (click)="remove(answer)"
-                class="col-span-1 text-center text-lg cursor-pointer hover:text-red-500"
+                *ngIf="pair.text"
+                class="grow col-span-1 border-solid border-[1.5px] rounded-md border-primary p-2 shadow-sm"
               >
-                <i class="fa-solid fa-trash-can"></i>
+                <mathjax [content]="pair.text!"></mathjax>
+              </div>
+              <div
+                *ngIf="pair.value"
+                class="grow col-span-1 border-solid border-[1.5px] rounded-md border-primary p-2 shadow-sm"
+              >
+                <mathjax [content]="pair.value!"></mathjax>
               </div>
             </div>
-          </div>
-        </nz-form-item>
+            <div class="flex items-center gap-x-5 mt-3">
+              <input
+                nz-input
+                nzSize="large"
+                placeholder="Câu hỏi"
+                [(ngModel)]="pair.text"
+                [ngModelOptions]="{ standalone: true }"
+              />
+              <input
+                nz-input
+                nzSize="large"
+                placeholder="Câu trả lời"
+                [(ngModel)]="pair.value"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </ng-container>
+        </div>
       </div>
     </div>
   </form>

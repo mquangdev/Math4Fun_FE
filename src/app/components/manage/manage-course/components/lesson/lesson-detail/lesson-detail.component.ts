@@ -7,6 +7,7 @@ import { LessonService } from 'src/app/services/lesson.service';
 import { NotiService } from 'src/app/services/noti.service';
 import { QuestionAddComponent } from '../../question/question-add/question-add.component';
 import { QuestionService } from 'src/app/services/question.service';
+import { QuestionType } from 'src/app/enums/question.enums';
 
 @Component({
   selector: 'app-leson-detail',
@@ -21,6 +22,7 @@ export class LessonDetailComponent implements OnInit {
   public lessonId: string = '';
   public chapterId: string = '';
   public lesson: any;
+  public QuestionType = QuestionType;
   constructor(
     private fb: FormBuilder,
     private noti: NotiService,

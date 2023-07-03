@@ -23,7 +23,9 @@ export class MainComponent implements OnInit, AfterViewInit {
   ) {}
   ngOnInit(): void {}
   ngAfterViewInit(): void {
-    this.getStyleMain();
+    setTimeout(() => {
+      this.getStyleMain();
+    });
   }
   getStyleMain() {
     this.isShowBar$.subscribe((isShow: Bar) => {

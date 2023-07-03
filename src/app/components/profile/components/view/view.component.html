@@ -1,18 +1,30 @@
 <div
+  *ngIf="userInfo"
   class="border-solid border-b-[1.5px] border-gray-200 py-4 px-2 flex items-start justify-between"
 >
   <div class="flex items-start gap-x-10 justify-between">
     <div
       class="w-[210px] h-[210px] border-solid border-[1.5px] rounded-full flex items-center justify-center relative"
     >
-      <div
-        (click)="changeAvatar()"
+      <label
+        for="avatar"
         style="border: solid 1.5px white"
         class="absolute top-[20px] right-[16px] bg-blue-500 text-white w-[30px] h-[30px] rounded-full flex items-center justify-center z-10 hover:opacity-70 cursor-pointer"
       >
         <i class="fa-solid fa-pen text-sm"></i>
-      </div>
-      <img [src]="anoAva" class="w-[170px] h-[170px]" alt="" />
+      </label>
+      <input
+        id="avatar"
+        type="file"
+        accept="png"
+        class="hidden"
+        (change)="changeAvatar($event)"
+      />
+      <img
+        [src]="userInfo.avatar || anoAva"
+        class="w-[210px] h-[210px] rounded-full"
+        alt=""
+      />
     </div>
     <div>
       <div class="text-2xl font-semibold">{{ userInfo.fullname }}</div>
@@ -40,7 +52,7 @@
   </div>
   <app-button text="Sửa hồ sơ" bgButton="#1cb0f6" edge="#1899d6"></app-button>
 </div>
-<div class="grid grid-cols-7 py-3 px-3 gap-x-5">
+<div *ngIf="userInfo" class="grid grid-cols-7 py-3 px-3 gap-x-5">
   <div class="col-span-4">
     <div class="text-2xl font-semibold">Thống kê</div>
     <div class="mt-2 grid grid-cols-2 gap-3">

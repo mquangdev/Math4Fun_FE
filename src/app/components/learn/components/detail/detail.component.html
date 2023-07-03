@@ -12,7 +12,7 @@
   </div>
   <ng-container *ngIf="questionNow" [ngSwitch]="questionNow.type">
     <div
-      *ngIf="questionNow.isWrong"
+      *ngIf="indexQuestionNow > totalQuestion - 1"
       class="text-[#ff9600] font-semibold mt-5 w-[60%] mx-auto flex items-center"
     >
       <div
@@ -22,30 +22,27 @@
       </div>
       <span class="uppercase">Lỗi sai trước đây</span>
     </div>
-    <div
-      *ngSwitchCase="QuestionType.chooseAnswer"
-      class="w-full flex items-center justify-center"
-    >
-      <div class="pt-3 pb-6 w-[60%] h-[70vh]">
-        <div class="text-4xl font-semibold">
-          <mathjax [content]="questionNow.text"></mathjax>
-        </div>
-        <div class="grid-cols-2 grid gap-3 mt-32">
-          <!-- {{ questionNow | json }} -->
-          <div
-            (click)="selectAnswer($event.target, answer)"
-            class="answer-button"
-            *ngFor="let answer of questionNow.answerList; index as i"
-          >
-            <div class="answer-button-index">{{ i + 1 }}</div>
-            <div class="text-center grow">
-              <mathjax [content]="answer.value"> </mathjax>
-            </div>
-          </div>
-        </div>
+    <div class="w-[60%] my-8 mx-auto flex items-center justify-center">
+      <div *ngSwitchCase="QuestionType.chooseAnswer" class="w-full">
+        <app-type-choose-answer
+          style="width: 100%"
+          [questionNow]="questionNow"
+          [isChecked]="isChecked"
+          [isSelected]="isSelected"
+          [answerNow]="answerNow"
+          (answerNow$)="answerNow = $event; isSelected = true"
+        ></app-type-choose-answer>
+      </div>
+      <div *ngSwitchCase="QuestionType.choosePair" class="w-full">
+        <app-type-choose-pair
+          [question]="questionNow"
+          [isTrue]="isTrue"
+          (isTrue$)="handleIsTrueEmit($event)"
+        ></app-type-choose-pair>
       </div>
     </div>
   </ng-container>
+  <!-- ---- check area ---- -->
   <ng-container>
     <div class="w-full border-solid border-t-2">
       <div *ngIf="!isChecked" class="w-full px-28 py-5 text-end">
@@ -113,6 +110,7 @@
       </div>
     </div>
   </ng-container>
+  <!-- ---- end check area ---- -->
 </ng-container>
 <ng-container *ngIf="isFinish">
   <app-finish

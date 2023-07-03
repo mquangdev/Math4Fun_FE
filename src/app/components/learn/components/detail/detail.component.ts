@@ -1,6 +1,7 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, interval } from 'rxjs';
+import { Question } from 'src/app/components/manage/manage-course/models/question.models';
 import { QuestionType } from 'src/app/enums/question.enums';
 import { LessonService } from 'src/app/services/lesson.service';
 import { QuestionService } from 'src/app/services/question.service';
@@ -17,10 +18,10 @@ export class DetailComponent implements OnInit {
   public listQuestion: any[] = [];
   public indexQuestionNow: number = 0;
   public QuestionType = QuestionType;
-  public questionNow: any;
+  public questionNow: Question = new Question();
   public answerNow: any;
   public isSelected: boolean = false;
-  public isTrue: boolean = false;
+  public isTrue: boolean = true;
   public isChecked: boolean = false;
   public totalQuestion: number = 0;
   public countTrueQuestion: number = 0;
@@ -72,6 +73,7 @@ export class DetailComponent implements OnInit {
       this.detailQuestion();
     });
   }
+
   detailQuestion() {
     if (!this.listQuestion || !this.listQuestion[this.indexQuestionNow]) return;
     let id = this.listQuestion[this.indexQuestionNow].id;
@@ -79,39 +81,12 @@ export class DetailComponent implements OnInit {
       this.questionNow = data;
     });
   }
-  selectAnswer(ele: any, answer: any) {
-    if (this.isChecked) return;
-    this.isSelected = true;
-    let element = ele.closest('.answer-button');
-    let listQuestionEle = document.querySelectorAll('.answer-button');
-    let indexEle = element.querySelector('.answer-button-index');
-    listQuestionEle.forEach((ele) => {
-      let indexElement = ele.querySelector('.answer-button-index');
-      this.renderer.setStyle(ele, 'color', 'black');
-      this.renderer.setStyle(ele, 'border', 'solid 2px #e5e5e5');
-      this.renderer.setStyle(ele, 'border-bottom', 'solid 4px #e5e5e5');
-      this.renderer.setStyle(ele, 'background-color', 'white');
-      this.renderer.setStyle(indexElement, 'color', '#afafaf');
-      this.renderer.setStyle(indexElement, 'border', 'solid 2px #e5e5e5');
-    });
-    this.renderer.setStyle(element, 'color', '#1899d6');
-    this.renderer.setStyle(element, 'border', 'solid 2px #84d8ff');
-    this.renderer.setStyle(element, 'border-bottom', 'solid 4px #84d8ff');
-    this.renderer.setStyle(element, 'background-color', '#ddf4ff');
-    this.renderer.setStyle(indexEle, 'color', '#1899d6');
-    this.renderer.setStyle(indexEle, 'border', 'solid 2px #84d8ff');
-    switch (this.questionNow.type) {
-      case QuestionType.chooseAnswer: {
-        this.answerNow = answer;
-        break;
-      }
-    }
-  }
 
   close() {
     this.router.navigate(['/main/learn']);
   }
 
+  // ---- common ----
   checkAnswer() {
     this.isChecked = true;
     switch (this.questionNow.type) {
@@ -122,27 +97,48 @@ export class DetailComponent implements OnInit {
     }
   }
 
+  chooseWrongAnswer() {
+    this.listQuestion.push(this.questionNow);
+    this.soundWrong();
+  }
+  // ---- end common ----
+
+  // ---- type choose answer  ----
   checkChooseAnswer() {
-    this.indexQuestionNow++;
+    // this.indexQuestionNow++;
     this.isTrue =
       this.questionNow.value === this.answerNow.value ? true : false;
     if (this.isTrue) {
       this.countTrueQuestion++;
       this.soundCorrect();
     } else {
-      this.listQuestion.push(this.questionNow);
-      this.soundWrong();
+      this.chooseWrongAnswer();
     }
   }
-
+  // ---- end type choose answer ----
+  // ---- type choose pair ----
+  handleIsTrueEmit(e: any) {
+    this.isTrue = e;
+    this.isSelected = true;
+    this.isChecked = true;
+    // this.indexQuestionNow++;
+    if (this.isTrue) {
+      this.countTrueQuestion++;
+      this.soundCorrect();
+    } else {
+      this.chooseWrongAnswer();
+    }
+  }
+  // ---- end type choose pair ----
   reset() {
     this.isChecked = false;
-    this.isTrue = false;
+    this.isTrue = true;
     this.isSelected = false;
   }
 
   nextQuestion() {
     if (this.countTrueQuestion < this.totalQuestion) {
+      this.indexQuestionNow++;
       this.detailQuestion();
       this.reset();
     } else {

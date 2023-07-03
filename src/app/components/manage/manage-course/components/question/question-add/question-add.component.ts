@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NzModalRef } from 'ng-zorro-antd/modal';
 import { MathjaxComponent } from 'src/app/components/reuseable/mathjax/mathjax.component';
 import { QuestionType } from 'src/app/enums/question.enums';
 import { KeyStorage } from 'src/app/enums/storage.enums';
 import { NotiService } from 'src/app/services/noti.service';
 import { QuestionService } from 'src/app/services/question.service';
+import { Answer, Pair } from '../../../models/question.models';
 
 @Component({
   selector: 'app-question-add',
@@ -16,9 +16,8 @@ import { QuestionService } from 'src/app/services/question.service';
 export class QuestionAddComponent implements OnInit {
   @ViewChild(MathjaxComponent) childView!: MathjaxComponent;
   public textQuestion: string = '';
-  // mathContent = `When $ a \\ne 0 $, there are two solutions to \\(ax^2 + bx + c = 0 \\) and they are $$ x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}$$ Polynomial Equation $$ y = { x^3 -4x^2 + 5x -6}$$`;
   public QuestionType = QuestionType;
-  public typeQuestion: QuestionType = QuestionType.chooseAnswer;
+  public typeQuestion: QuestionType = QuestionType.choosePair;
   public questionType = [
     {
       text: 'Chọn cặp phù hợp',
@@ -41,9 +40,11 @@ export class QuestionAddComponent implements OnInit {
     text: [''],
     answer: [null],
   });
+  // ----- type choose pair, choose answer -----
   public listAnswer: Answer[] = [];
   public listPair: Pair[] = [];
   public lessonId: string = '';
+  // ----- end type choose pair -----
   constructor(
     private questionService: QuestionService,
     private fb: FormBuilder,
@@ -56,25 +57,15 @@ export class QuestionAddComponent implements OnInit {
   cancel() {}
   submitForm() {
     if (this.form.valid) {
-      if (this.typeQuestion === QuestionType.chooseAnswer) {
-        let body = {
-          text: this.textQuestion,
-          image: null,
-          type: this.typeQuestion,
-          value: this.form.get('answer')?.value.value,
-          lessonId: this.lessonId,
-          answerList: this.listAnswer,
-        };
-        console.log(body);
-        this.questionService.addQuestion(body).subscribe(
-          (data) => {
-            this.noti.success('Thêm câu hỏi thành công');
-            this.router.navigate(['/main/manage-course/lesson', this.lessonId]);
-          },
-          (err) => {
-            this.noti.warning();
-          }
-        );
+      switch (this.typeQuestion) {
+        case QuestionType.chooseAnswer: {
+          this.addTypeChooseAnswer();
+          break;
+        }
+        case QuestionType.choosePair: {
+          this.addTypeChoosePair();
+          break;
+        }
       }
     }
     {
@@ -86,22 +77,52 @@ export class QuestionAddComponent implements OnInit {
       });
     }
   }
+
   addAnswer() {
     this.listAnswer.push(new Answer());
   }
   remove(answer: Answer) {
     this.listAnswer.splice(this.listAnswer.indexOf(answer), 1);
   }
-  addPair() {
-    this.listPair.push(new Pair());
-  }
-}
 
-export class Answer {
-  text?: string;
-  value?: string;
-}
-export class Pair {
-  text?: string;
-  value?: string;
+  // ----- Add Type -----
+  addTypeChooseAnswer() {
+    let body = {
+      text: this.textQuestion,
+      image: null,
+      type: this.typeQuestion,
+      value: this.form.get('answer')?.value.value,
+      lessonId: this.lessonId,
+      answerList: this.listAnswer,
+    };
+    this.questionService.addQuestion(body).subscribe(
+      (data) => {
+        this.noti.success('Thêm câu hỏi thành công');
+        this.router.navigate(['/main/manage-course/lesson', this.lessonId]);
+      },
+      (err) => {
+        this.noti.warning();
+      }
+    );
+  }
+
+  addTypeChoosePair() {
+    let body: any = {
+      text: 'Chọn cặp phù hợp',
+      image: null,
+      type: this.typeQuestion,
+      lessonId: this.lessonId,
+      answerList: this.listAnswer,
+    };
+    this.questionService.addQuestion(body).subscribe(
+      (data) => {
+        this.noti.success('Thêm câu hỏi thành công');
+        this.router.navigate(['/main/manage-course/lesson', this.lessonId]);
+      },
+      (err) => {
+        this.noti.warning();
+      }
+    );
+  }
+  // ---- End Add Type ----
 }

@@ -9,6 +9,8 @@ import { DetailComponent } from './components/detail/detail.component';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { ReuseableModule } from '../reuseable/reuseable.module';
 import { FinishComponent } from './components/finish/finish.component';
+import { TypeChooseAnswerComponent } from './components/types/type-choose-answer/type-choose-answer.component';
+import { TypeChoosePairComponent } from './components/types/type-choose-pair/type-choose-pair.component';
 @NgModule({
   imports: [
     LearnRoutes,
@@ -23,6 +25,8 @@ import { FinishComponent } from './components/finish/finish.component';
     ContainerComponent,
     DetailComponent,
     FinishComponent,
+    TypeChooseAnswerComponent,
+    TypeChoosePairComponent,
   ],
 })
 export class LearnModule {}

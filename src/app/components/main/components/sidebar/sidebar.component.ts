@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeyStorage } from 'src/app/enums/storage.enums';
 import { AuthService } from 'src/app/services/auth.service';
+import { CommonService } from 'src/app/services/common.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -14,8 +15,21 @@ export class SidebarComponent implements OnInit {
   public listSidebar: Sidebar[] = [];
   public anoAvatar: string =
     './../../../../../assets/images/img-avatar-ano.png';
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private commonService: CommonService
+  ) {}
   ngOnInit(): void {
+    this.generateSidebar();
+    this.commonService.changeAvatar$.subscribe((data) => {
+      if (data) {
+        this.generateSidebar();
+      }
+    });
+  }
+
+  generateSidebar() {
     this.userService
       .getById(localStorage.getItem(KeyStorage.user_id)!)
       .subscribe((data) => {
@@ -43,6 +57,7 @@ export class SidebarComponent implements OnInit {
             text: 'Hồ sơ',
             icon: data.avatar ? data.avatar : this.anoAvatar,
             routerLink: '/main/profile',
+            type: 'avatar',
           },
         ];
         if (this.role === 1) {
@@ -64,4 +79,5 @@ export class Sidebar {
   text?: string;
   icon?: string;
   routerLink?: string;
+  type?: string;
 }

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { KeyStorage } from 'src/app/enums/storage.enums';
+import { CommonService } from 'src/app/services/common.service';
+import { NotiService } from 'src/app/services/noti.service';
+import { UploadService } from 'src/app/services/upload.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,7 +14,12 @@ export class ViewComponent implements OnInit {
   public userInfo: any;
   public anoAva: string = './../../../../../assets/images/img-avatar-ano.png';
   public listCourse: any[] = [];
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private uploadService: UploadService,
+    private noti: NotiService,
+    private commonService: CommonService
+  ) {}
   ngOnInit(): void {
     this.getInfoUser();
     this.getListCourseByUserId();
@@ -31,5 +39,24 @@ export class ViewComponent implements OnInit {
       });
   }
 
-  changeAvatar() {}
+  changeAvatar(e: any) {
+    this.uploadService
+      .uploadFile(e.target.files[0], 'avatar')
+      .subscribe((data) => {
+        let body = {
+          id: this.userInfo.id,
+          avatar: data[0],
+        };
+        this.userService.updateInfo(body).subscribe(
+          (data) => {
+            this.noti.success();
+            this.getInfoUser();
+            this.commonService.setChangeAvatarSource(true);
+          },
+          (err) => {
+            this.noti.warning();
+          }
+        );
+      });
+  }
 }

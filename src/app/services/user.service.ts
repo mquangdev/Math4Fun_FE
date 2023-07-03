@@ -21,4 +21,7 @@ export class UserService {
   registerCourse(body: any): Observable<any> {
     return this.httpClient.post(this.COURSE_URL + '/RegisterCourse', body);
   }
+  updateInfo(body: any): Observable<any> {
+    return this.httpClient.post(this.URL + '/Update', body);
+  }
 }

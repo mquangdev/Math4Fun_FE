@@ -1,0 +1,17 @@
+<div class="pt-3 pb-6">
+  <div class="text-4xl font-semibold">
+    <mathjax [content]="questionNow.text"></mathjax>
+  </div>
+  <div class="grid-cols-2 grid gap-3 mt-32">
+    <div
+      (click)="selectAnswer($event.target, answer)"
+      class="answer-button"
+      *ngFor="let answer of questionNow.answerList; index as i"
+    >
+      <div class="answer-button-index">{{ i + 1 }}</div>
+      <div class="text-center grow">
+        <mathjax [content]="answer.value"> </mathjax>
+      </div>
+    </div>
+  </div>
+</div>

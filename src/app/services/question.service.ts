@@ -18,4 +18,7 @@ export class QuestionService {
   addQuestion(body: any): Observable<any> {
     return this.http.post(this.URL + '/Add', body);
   }
+  updateQuestion(body: any): Observable<any> {
+    return this.http.post(this.URL + '/Update', body);
+  }
 }

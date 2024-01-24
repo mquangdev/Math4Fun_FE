@@ -7,10 +7,7 @@ import {
   Renderer2,
   SimpleChanges,
 } from '@angular/core';
-import {
-  Answer,
-  Question,
-} from 'src/app/components/manage/manage-course/models/question.models';
+import { Answer, Question } from 'src/app/models/question.models';
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
@@ -34,7 +31,7 @@ export class TypeChoosePairComponent implements OnChanges {
   public listIdsQuestionTrue: string[] = [];
   constructor(
     private commonService: CommonService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
   ) {}
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['question']) {
@@ -61,7 +58,7 @@ export class TypeChoosePairComponent implements OnChanges {
     if (this.listIdsQuestionTrue.includes(question.id!)) return;
     let element = ele.closest('.question-button');
     let listQuestionEle = Array.from(
-      document.querySelectorAll('.question-button')
+      document.querySelectorAll('.question-button'),
     );
     listQuestionEle = listQuestionEle.filter((ele) => {
       return !this.listIdsQuestionTrue.includes(ele.id);
@@ -132,14 +129,14 @@ export class TypeChoosePairComponent implements OnChanges {
     this.renderer.setStyle(
       element.ele,
       'border-bottom',
-      'solid 4px rgb(239 68 68)'
+      'solid 4px rgb(239 68 68)',
     );
     this.renderer.setStyle(element.ele, 'background-color', 'rgb(254 202 202)');
     this.renderer.setStyle(element.indexEle, 'color', 'rgb(239 68 68)');
     this.renderer.setStyle(
       element.indexEle,
       'border',
-      'solid 2px rgb(239 68 68)'
+      'solid 2px rgb(239 68 68)',
     );
   }
 

@@ -20,7 +20,7 @@ export class ContainerComponent {
     private userService: UserService,
     private courseService: CourseService,
     private commonService: CommonService,
-    private router: Router
+    private router: Router,
   ) {
     this.righbarService.setIsShowBar({
       right: true,
@@ -39,7 +39,7 @@ export class ContainerComponent {
     this.courseService
       .getDetailCourseByUserId(
         localStorage.getItem(KeyStorage.user_id)!,
-        localStorage.getItem(KeyStorage.id_course_selected)!
+        localStorage.getItem(KeyStorage.id_course_selected)!,
       )
       .subscribe((data) => {
         this.courseDetail = data;

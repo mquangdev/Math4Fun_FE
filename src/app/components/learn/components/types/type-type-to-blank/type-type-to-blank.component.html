@@ -1,0 +1,14 @@
+<div class="pt-3 pb-6">
+  <div class="text-4xl font-semibold mb-6">Điền vào chỗ trống</div>
+  <div class="flex items-center gap-x-2 my-32 justify-center">
+    <div class="text-2xl">
+      <mathjax [content]="questionNow.text!" />
+    </div>
+    <input
+      (input)="onInputChange($event)"
+      class="rounded-lg border-[2px] w-[300px] border-gray-500 px-2 py-2 text-xl bg-gray-50"
+      placeholder="Nhập câu trả lời"
+      [(ngModel)]="answerType"
+    />
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="pt-3 pb-6">
+  <div class="text-4xl font-semibold mb-6">Điền vào chỗ trống</div>
+  <div class="flex items-center gap-x-2">
+    <div class="text-2xl font-semibold w-fit">
+      <mathjax [content]="questionNow.text!"></mathjax>
+    </div>
+    <div>________</div>
+    <div class="text-2xl font-semibold w-fit">
+      <mathjax [content]="questionNow.textBonus!"></mathjax>
+    </div>
+  </div>
+
+  <div class="grid-cols-2 grid gap-3 mt-32">
+    <div
+      (click)="selectAnswer($event.target, answer)"
+      class="answer-button"
+      *ngFor="let answer of questionNow.answerList; index as i"
+    >
+      <div class="answer-button-index">{{ i + 1 }}</div>
+      <div class="text-center grow">
+        <mathjax [content]="answer.value!"> </mathjax>
+      </div>
+    </div>
+  </div>
+</div>

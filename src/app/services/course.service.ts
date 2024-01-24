@@ -30,7 +30,16 @@ export class CourseService {
         '/GetDetailCourseByUserId?userId=' +
         userId +
         '&courseId=' +
-        courseId
+        courseId,
+    );
+  }
+  leaveCourseByUser(userId: string, courseId: string): Observable<any> {
+    return this.http.get(
+      this.URL +
+        '/LeaveCourseByUser?userId=' +
+        userId +
+        '&courseId=' +
+        courseId,
     );
   }
 }

@@ -17,7 +17,7 @@ export class CourseRegisterComponent implements OnInit, OnDestroy {
     private courseService: CourseService,
     private rightBarService: RightBarService,
     private userService: UserService,
-    private noti: NotiService
+    private noti: NotiService,
   ) {}
   ngOnDestroy(): void {
     this.rightBarService.setIsShowBar({
@@ -71,8 +71,8 @@ export class CourseRegisterComponent implements OnInit, OnDestroy {
         this.getAllCourseByUserId();
       },
       (err) => {
-        this.noti.warning();
-      }
+        this.noti.warning(err.error);
+      },
     );
   }
 }

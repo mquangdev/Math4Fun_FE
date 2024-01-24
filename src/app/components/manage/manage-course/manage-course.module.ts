@@ -22,6 +22,7 @@ import { QuestionDetailComponent } from './components/question/question-detail/q
 import { CourseRegisterComponent } from './components/course/course-register/course-register.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { LearnModule } from '../../learn/learn.module';
 @NgModule({
   declarations: [
     ManageCourseComponent,

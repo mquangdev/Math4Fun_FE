@@ -2,6 +2,7 @@
 <ng-container [ngSwitch]="questionType">
   <ng-container *ngSwitchCase="QuestionType.chooseAnswer">
     <div class="text-2xl font-semibold my-2">Loại: Câu hỏi - lựa chọn</div>
+    <!--    <app-type-choose-answer></app-type-choose-answer>-->
     <form nz-form nzLayout="vertical">
       <mathjax [content]="question.text!"></mathjax>
       <nz-form-item>
@@ -66,10 +67,168 @@
   </ng-container>
   <ng-container *ngSwitchCase="QuestionType.choosePair">
     <div class="text-2xl font-semibold my-2">Loại: Chọn cặp phù hợp</div>
+    <div>
+      <div class="text-xl font-semibold flex items-center gap-x-3">
+        <span>Chọn cặp phù hợp</span>
+        <i
+          (click)="addAnswer()"
+          class="fa-solid fa-circle-plus text-3xl hover:opacity-70 cursor-pointer"
+        ></i>
+      </div>
+      <div class="flex flex-col gap-y-2">
+        <ng-container *ngFor="let pair of listAnswer">
+          <div class="grid grid-cols-2 gap-x-5 mt-3">
+            <div
+              *ngIf="pair.text"
+              class="grow col-span-1 border-solid border-[1.5px] rounded-md border-primary p-2 shadow-sm"
+            >
+              <mathjax [content]="pair.text!"></mathjax>
+            </div>
+            <div
+              *ngIf="pair.value"
+              class="grow col-span-1 border-solid border-[1.5px] rounded-md border-primary p-2 shadow-sm"
+            >
+              <mathjax [content]="pair.value!"></mathjax>
+            </div>
+          </div>
+          <div class="flex items-center gap-x-5 mt-3">
+            <input
+              nz-input
+              nzSize="large"
+              placeholder="Câu hỏi"
+              [(ngModel)]="pair.text"
+              [ngModelOptions]="{ standalone: true }"
+            />
+            <input
+              nz-input
+              nzSize="large"
+              placeholder="Câu trả lời"
+              [(ngModel)]="pair.value"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="QuestionType.chooseToBlank">
+    <div class="text-2xl font-semibold my-2">
+      Loại: Chọn đáp án vào chỗ trống
+    </div>
+    <form nz-form nzLayout="vertical">
+      <div class="w-full flex items-center justify-between">
+        <div class="w-72 break-words overflow-hidden">
+          <mathjax [content]="question.text!"></mathjax>
+        </div>
+        <div class="flex flex-col gap-y-1 items-center">
+          <mathjax [content]="question.value"></mathjax>
+          <div>__________</div>
+        </div>
+        <div class="w-72 break-words overflow-hidden">
+          <mathjax [content]="question.textBonus!"></mathjax>
+        </div>
+      </div>
+      <nz-form-item>
+        <nz-form-label nzRequired="">Câu hỏi</nz-form-label>
+        <div class="flex items-center gap-x-2">
+          <nz-form-control class="flex-1">
+            <textarea
+              nz-input
+              [(ngModel)]="question.text"
+              [ngModelOptions]="{ standalone: true }"
+            ></textarea>
+          </nz-form-control>
+          <nz-form-control class="flex-1">
+            <textarea
+              nz-input
+              [(ngModel)]="question.textBonus"
+              [ngModelOptions]="{ standalone: true }"
+            ></textarea>
+          </nz-form-control>
+        </div>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired="">Đáp án đúng</nz-form-label>
+        <nz-radio-group
+          [(ngModel)]="question.value"
+          [ngModelOptions]="{ standalone: true }"
+        >
+          <label
+            *ngFor="let answer of listAnswer"
+            nz-radio
+            [nzValue]="answer.value"
+          >
+            <mathjax [content]="answer.value!"></mathjax
+          ></label>
+        </nz-radio-group>
+      </nz-form-item>
+      <nz-form-item>
+        <div class="flex items-center gap-x-2">
+          <nz-form-label nzRequired="">Đáp án</nz-form-label>
+          <i
+            (click)="addAnswer()"
+            class="fa-solid fa-circle-plus text-2xl pb-[8px] cursor-pointer hover:opacity-70"
+          ></i>
+        </div>
+        <ng-container>
+          <div *ngFor="let answer of listAnswer; index as i">
+            <div class="grid grid-cols-5 items-center gap-x-2 mt-2">
+              <div class="flex items-center col-span-2">
+                <div class="mr-3">Đáp án {{ i + 1 }}:</div>
+                <mathjax [content]="answer.value || ''"></mathjax>
+              </div>
+              <textarea
+                class="col-span-2"
+                placeholder="Nhập đáp án"
+                rows="1"
+                nz-input
+                [(ngModel)]="answer.value"
+                [ngModelOptions]="{ standalone: true }"
+              ></textarea>
+              <div
+                (click)="remove(answer)"
+                class="col-span-1 text-center text-lg cursor-pointer hover:text-red-500"
+              >
+                <i class="fa-solid fa-trash-can"></i>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </nz-form-item>
+    </form>
+  </ng-container>
+  <ng-container *ngSwitchCase="QuestionType.typeToBlank">
+    <div class="text-2xl font-semibold my-2">Loại: Điền số vào chỗ trống</div>
+    <div class="flex flex-col gap-y-2">
+      <div class="flex items-center gap-x-2">
+        <mathjax [content]="question.text!" />
+        <mathjax [content]="question.value!" />
+      </div>
+      <div>
+        <label>Câu hỏi</label>
+        <textarea
+          [(ngModel)]="question.text!"
+          nz-input
+          placeholder="Câu hỏi"
+          [nzAutosize]="{ minRows: 3, maxRows: 5 }"
+          [ngModelOptions]="{ standalone: true }"
+        ></textarea>
+      </div>
+      <div>
+        <label>Đáp án</label>
+        <textarea
+          [(ngModel)]="question.value!"
+          nz-input
+          placeholder="Câu trả lời"
+          [nzAutosize]="{ minRows: 3, maxRows: 5 }"
+          [ngModelOptions]="{ standalone: true }"
+        ></textarea>
+      </div>
+    </div>
   </ng-container>
 </ng-container>
 <ng-container>
-  <div class="w-full flex justify-end items-center gap-x-2">
+  <div class="w-full flex justify-end items-center gap-x-2 mt-3">
     <button nz-button nzType="default">Hủy</button>
     <button nz-button nzType="primary" (click)="update()">Cập nhật</button>
   </div>

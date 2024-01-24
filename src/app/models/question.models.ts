@@ -20,4 +20,5 @@ export class Question {
   answerList?: Answer[];
   isWrong?: boolean;
   index?: number;
+  textBonus?: string;
 }

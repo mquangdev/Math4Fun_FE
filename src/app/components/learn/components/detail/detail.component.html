@@ -40,6 +40,25 @@
           (isTrue$)="handleIsTrueEmit($event)"
         ></app-type-choose-pair>
       </div>
+      <div *ngSwitchCase="QuestionType.chooseToBlank" class="w-full">
+        <app-type-choose-to-blank
+          style="width: 100%"
+          [questionNow]="questionNow"
+          [isChecked]="isChecked"
+          [isSelected]="isSelected"
+          [answerNow]="answerNow"
+          (answerNow$)="answerNow = $event; isSelected = true"
+        ></app-type-choose-to-blank>
+      </div>
+      <div *ngSwitchCase="QuestionType.typeToBlank" class="w-full">
+        <app-type-type-to-blank
+          style="width: 100%"
+          [questionNow]="questionNow"
+          [answerNow]="answerNow"
+          (answerNow$)="answerNow = $event; isSelected = true"
+          (isSelected$)="isSelected = $event"
+        ></app-type-type-to-blank>
+      </div>
     </div>
   </ng-container>
   <!-- ---- check area ---- -->

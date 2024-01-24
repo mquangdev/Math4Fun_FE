@@ -11,6 +11,9 @@ import { ReuseableModule } from '../reuseable/reuseable.module';
 import { FinishComponent } from './components/finish/finish.component';
 import { TypeChooseAnswerComponent } from './components/types/type-choose-answer/type-choose-answer.component';
 import { TypeChoosePairComponent } from './components/types/type-choose-pair/type-choose-pair.component';
+import { TypeChooseToBlankComponent } from './components/types/type-choose-to-blank/type-choose-to-blank.component';
+import { TypeTypeToBlankComponent } from './components/types/type-type-to-blank/type-type-to-blank.component';
+import { NzInputModule } from 'ng-zorro-antd/input';
 @NgModule({
   imports: [
     LearnRoutes,
@@ -18,6 +21,7 @@ import { TypeChoosePairComponent } from './components/types/type-choose-pair/typ
     NzDropDownModule,
     NzProgressModule,
     ReuseableModule,
+    NzInputModule,
   ],
   declarations: [
     LearnComponent,
@@ -27,6 +31,9 @@ import { TypeChoosePairComponent } from './components/types/type-choose-pair/typ
     FinishComponent,
     TypeChooseAnswerComponent,
     TypeChoosePairComponent,
+    TypeChooseToBlankComponent,
+    TypeTypeToBlankComponent,
   ],
+  exports: [TypeChooseAnswerComponent],
 })
 export class LearnModule {}

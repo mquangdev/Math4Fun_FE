@@ -19,7 +19,6 @@ export class MathjaxComponent implements OnInit, OnChanges {
   constructor(public gs: GlobalService) {}
   ngOnChanges(changes: SimpleChanges) {
     if (changes['content']) {
-      // console.log("content chnaged")
       this.renderMath();
     }
   }
@@ -34,7 +33,7 @@ export class MathjaxComponent implements OnInit, OnChanges {
     setTimeout(() => {
       angObj.mathJaxObject.Hub.Queue(
         ['Typeset', angObj.mathJaxObject.Hub],
-        'mathContent'
+        'mathContent',
       );
     }, 1000);
   }

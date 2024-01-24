@@ -1,7 +1,7 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, interval } from 'rxjs';
-import { Question } from 'src/app/components/manage/manage-course/models/question.models';
+import { Question } from 'src/app/models/question.models';
 import { QuestionType } from 'src/app/enums/question.enums';
 import { LessonService } from 'src/app/services/lesson.service';
 import { QuestionService } from 'src/app/services/question.service';
@@ -39,7 +39,7 @@ export class DetailComponent implements OnInit {
     private route: ActivatedRoute,
     private lessonService: LessonService,
     private renderer: Renderer2,
-    private router: Router
+    private router: Router,
   ) {}
   ngOnInit(): void {
     this.rightbarService.setIsShowBar({
@@ -94,6 +94,14 @@ export class DetailComponent implements OnInit {
         this.checkChooseAnswer();
         break;
       }
+      case QuestionType.chooseToBlank: {
+        this.checkChooseToBlank();
+        break;
+      }
+      case QuestionType.typeToBlank: {
+        this.checkTypeToBlank();
+        break;
+      }
     }
   }
 
@@ -106,6 +114,35 @@ export class DetailComponent implements OnInit {
   // ---- type choose answer  ----
   checkChooseAnswer() {
     // this.indexQuestionNow++;
+    this.isTrue =
+      this.questionNow.value === this.answerNow.value ? true : false;
+    if (this.isTrue) {
+      this.countTrueQuestion++;
+      this.soundCorrect();
+    } else {
+      this.chooseWrongAnswer();
+    }
+  }
+  checkChooseToBlank() {
+    // this.indexQuestionNow++;
+    this.isTrue =
+      this.questionNow.value === this.answerNow.value ? true : false;
+    if (this.isTrue) {
+      this.countTrueQuestion++;
+      this.soundCorrect();
+    } else {
+      this.chooseWrongAnswer();
+    }
+  }
+  checkTypeToBlank() {
+    // this.indexQuestionNow++;
+    if (this.questionNow.value) {
+      this.questionNow.value = this.questionNow.value.replace(
+        /^[$]+|[$]+$/g,
+        '',
+      );
+      console.log(this.questionNow.value);
+    }
     this.isTrue =
       this.questionNow.value === this.answerNow.value ? true : false;
     if (this.isTrue) {
@@ -151,7 +188,7 @@ export class DetailComponent implements OnInit {
           ((this.totalQuestion -
             (this.listQuestion.length - this.totalQuestion)) *
             100) /
-            this.totalQuestion
+            this.totalQuestion,
         );
       }
       this.stopTime();

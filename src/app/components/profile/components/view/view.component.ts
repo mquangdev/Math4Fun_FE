@@ -4,6 +4,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { NotiService } from 'src/app/services/noti.service';
 import { UploadService } from 'src/app/services/upload.service';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view',
@@ -18,7 +19,8 @@ export class ViewComponent implements OnInit {
     private userService: UserService,
     private uploadService: UploadService,
     private noti: NotiService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private router: Router,
   ) {}
   ngOnInit(): void {
     this.getInfoUser();
@@ -55,8 +57,12 @@ export class ViewComponent implements OnInit {
           },
           (err) => {
             this.noti.warning();
-          }
+          },
         );
       });
+  }
+
+  editProfile() {
+    this.router.navigate(['/main/profile/edit']);
   }
 }

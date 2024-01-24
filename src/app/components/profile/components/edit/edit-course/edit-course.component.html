@@ -1,0 +1,21 @@
+<div class="px-3 w-full">
+  <div class="text-2xl">Quản lý khóa học</div>
+  <div class="flex items-start ml-20 mt-10 gap-x-6 w-full">
+    <div class="font-semibold">Khóa học</div>
+    <div>
+      <div
+        *ngFor="let course of listCourse"
+        class="border-t border-b py-5 w-96 flex gap-x-2 items-center"
+      >
+        <img [src]="course.image" class="w-8" />
+        <div class="text-lg opacity-50 font-semibold">{{ course.name }}</div>
+        <div
+          (click)="leaveCourse(course)"
+          class="uppercase text-red-500 ml-auto font-semibold text-base hover:opacity-70 cursor-pointer"
+        >
+          Gỡ bỏ
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

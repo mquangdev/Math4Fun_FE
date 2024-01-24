@@ -23,6 +23,7 @@
           nz-input
           formControlName="subTile"
           placeholder="Nhập mô tả chương học"
+          rows="10"
         ></textarea>
       </nz-form-control>
     </nz-form-item>
@@ -47,15 +48,15 @@
     <button nz-button nzType="primary" (click)="addLesson()">
       Thêm bài học
     </button>
-    <div class="flex items-center gap-x-3 mt-3" *ngIf="chapter">
+    <div class="flex items-center gap-3 mt-3 flex-wrap" *ngIf="chapter">
       <div
         *ngFor="let lesson of chapter.lessonList; index as i"
         class="flex items-center"
         (click)="detailLesson(lesson.id)"
       >
-        <div class="border-hover lesson">
+        <div class="border-hover lesson w-[200px] h-[120px]">
           <div class="text-xl mt-2">Bài {{ i + 1 }}</div>
-          <div class="text-gray-400">{{ lesson.title }}</div>
+          <div class="text-gray-400 line-clamp-2">{{ lesson.title }}</div>
           <div
             (click)="removeLesson(lesson.id); $event.stopPropagation()"
             class="lesson-remove text-lg"

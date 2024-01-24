@@ -55,9 +55,11 @@
           (click)="detailChapter()"
           [routerLink]="['/main/manage-course/chapter', chapter.id]"
         >
-          <div class="border-hover chapter">
-            <div class="text-xl mt-2">{{ chapter.title }}</div>
-            <div class="text-gray-400">{{ chapter.subTile }}</div>
+          <div class="border-hover chapter max-w-[200px] flex flex-col">
+            <div class="text-xl mt-2 line-clamp-4 overflow-hidden h-[120px]">
+              {{ chapter.title }}
+            </div>
+            <div class="text-gray-400 line-clamp-2">{{ chapter.subTile }}</div>
             <div
               (click)="removeChapter(chapter.id); $event.stopPropagation()"
               class="chapter-remove text-lg"

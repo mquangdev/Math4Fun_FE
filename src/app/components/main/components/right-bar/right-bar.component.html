@@ -36,16 +36,9 @@
         <div class="uppercase text-base px-3 py-2 text-gray-400 cursor-pointer">
           Các khóa học
         </div>
-        <li
-          *ngFor="let course of listCourse"
-          nz-menu-item
-          style="
-            padding: 0px 0px !important;
-            padding-left: 0px;
-            padding-right: 0px;
-          "
-        >
+        <li *ngFor="let course of listCourse" nz-menu-item>
           <div
+            (click)="changeSelectCourse(course)"
             [ngClass]="{
               'text-blue-500 bg-blue-100 font-semibold': course.isSelected
             }"

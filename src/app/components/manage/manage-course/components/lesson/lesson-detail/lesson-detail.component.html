@@ -34,6 +34,7 @@
     <button nz-button nzType="primary" class="mt-2" (click)="addQuestion()">
       Thêm câu hỏi
     </button>
+
     <div class="flex items-center gap-x-3 mt-3" *ngIf="lesson">
       <div
         *ngFor="let question of lesson.questionList; index as i"
@@ -53,7 +54,7 @@
               Chọn đáp án vào chỗ trống
             </div>
             <div *ngIf="question.type === QuestionType.typeToBlank">
-              Chọn đáp án vào chỗ trống
+              Điền số vào chỗ trống
             </div>
           </ng-container>
           <div

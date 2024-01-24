@@ -18,7 +18,8 @@ export class RightBarComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private modal: NzModalService,
   ) {}
   ngOnInit(): void {
     this.getAllCourseByUserId();
@@ -29,14 +30,26 @@ export class RightBarComponent implements OnInit {
       .getAllCourseByUserId(localStorage.getItem(KeyStorage.user_id)!)
       .subscribe((data) => {
         this.listCourse = data;
-        if (this.listCourse) {
-          this.listCourse[0].isSelected = true;
+        if (!localStorage.getItem(KeyStorage.id_course_selected)) {
+          if (this.listCourse) {
+            this.listCourse[0].isSelected = true;
+          }
+          this.courseSelected = this.listCourse[0];
+          localStorage.setItem(
+            KeyStorage.id_course_selected,
+            this.courseSelected.id,
+          );
+        } else {
+          let idCourseSelected = localStorage.getItem(
+            KeyStorage.id_course_selected,
+          );
+          this.listCourse.map((c: any) => {
+            if (c.id === idCourseSelected) {
+              c.isSelected = true;
+              this.courseSelected = c;
+            }
+          });
         }
-        this.courseSelected = this.listCourse[0];
-        localStorage.setItem(
-          KeyStorage.id_course_selected,
-          this.courseSelected.id
-        );
         this.commonService.changeSelectedCourse(true);
       });
   }
@@ -51,5 +64,24 @@ export class RightBarComponent implements OnInit {
 
   addCourse() {
     this.router.navigate(['/main/manage-course/register']);
+  }
+
+  changeSelectCourse(course: any) {
+    if (course.id === this.courseSelected.id) return;
+    this.modal.confirm({
+      nzTitle: `Chuyển sang khóa học ${course.name} ?`,
+      nzOnOk: () => {
+        this.listCourse.forEach((c: any) => {
+          if (c.id != course.id) {
+            c.isSelected = false;
+          } else {
+            c.isSelected = true;
+          }
+        });
+        this.courseSelected = course;
+        localStorage.setItem(KeyStorage.id_course_selected, course.id);
+        this.commonService.changeSelectedCourse(true);
+      },
+    });
   }
 }

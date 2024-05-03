@@ -7,6 +7,7 @@ import { LessonDetailComponent } from './components/lesson/lesson-detail/lesson-
 import { CourseRegisterComponent } from './components/course/course-register/course-register.component';
 import { QuestionAddComponent } from './components/question/question-add/question-add.component';
 import { QuestionDetailComponent } from './components/question/question-detail/question-detail.component';
+import { QuestionAddAiComponent } from './components/question/question-add-ai/question-add-ai.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
       {
         path: 'question-add',
         component: QuestionAddComponent,
+      },
+      {
+        path: 'question-add-ai',
+        component: QuestionAddAiComponent,
       },
       {
         path: 'question/:id',

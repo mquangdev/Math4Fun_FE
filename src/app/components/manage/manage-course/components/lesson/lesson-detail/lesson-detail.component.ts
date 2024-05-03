@@ -92,6 +92,9 @@ export class LessonDetailComponent implements OnInit {
     //   },
     // });
   }
+  addQuestionAI() {
+    this.router.navigate(['/main/manage-course/question-add-ai']);
+  }
 
   detailQuestion(question: any) {
     const queryParams: NavigationExtras = {

@@ -23,6 +23,8 @@ import { CourseRegisterComponent } from './components/course/course-register/cou
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { LearnModule } from '../../learn/learn.module';
+import { QuestionAddAiComponent } from './components/question/question-add-ai/question-add-ai.component';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 @NgModule({
   declarations: [
     ManageCourseComponent,
@@ -36,6 +38,7 @@ import { LearnModule } from '../../learn/learn.module';
     QuestionAddComponent,
     QuestionDetailComponent,
     CourseRegisterComponent,
+    QuestionAddAiComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +52,7 @@ import { LearnModule } from '../../learn/learn.module';
     NzUploadModule,
     NzSelectModule,
     NzRadioModule,
+    NzIconModule,
     RouterModule,
   ],
 })

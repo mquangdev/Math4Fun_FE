@@ -32,9 +32,18 @@
   <div>
     <div>Các câu hỏi:</div>
     <button nz-button nzType="primary" class="mt-2" (click)="addQuestion()">
-      Thêm câu hỏi
+      <i class="fa-solid fa-circle-plus mr-2"></i>
+      <span>Tạo câu hỏi</span>
     </button>
-
+    <button
+      nz-button
+      nzType="primary"
+      class="mt-2 ml-4"
+      (click)="addQuestionAI()"
+    >
+      <i class="fa-brands fa-slack mr-2"></i>
+      <span>Tự động tạo câu hỏi</span>
+    </button>
     <div class="flex items-center gap-x-3 mt-3" *ngIf="lesson">
       <div
         *ngFor="let question of lesson.questionList; index as i"

@@ -1,0 +1,53 @@
+<app-header text="Thêm mới câu hỏi tự động"></app-header>
+<div class="flex flex-col gap-y-3 mt-5">
+  <form [formGroup]="form" nz-form nzLayout="vertical">
+    <nz-form-item>
+      <nz-form-label nzRequired>Kiểu câu hỏi</nz-form-label>
+      <nz-form-control nzErrorTip="Trường này là bắt buộc">
+        <nz-select
+          class="w-fit"
+          nzPlaceHolder="Chọn kiểu câu hỏi"
+          style="width: 200px !important"
+          [(ngModel)]="typeQuestion"
+          [ngModelOptions]="{ standalone: true }"
+        >
+          <nz-option
+            *ngFor="let option of questionType"
+            [nzValue]="option.value"
+            [nzLabel]="option.text"
+          ></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired>Nội dung</nz-form-label>
+      <nz-form-control>
+        <textarea
+          placeholder="Nhập nội dung"
+          style="margin-top: 8px !important"
+          rows="2"
+          nz-input
+          [(ngModel)]="content"
+          [ngModelOptions]="{ standalone: true }"
+          class="!max-w-3xl"
+        ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzRequired>Số lượng câu hỏi</nz-form-label>
+      <nz-form-control>
+        <input
+          nz-input
+          placeholder="Nhập số lượng câu hỏi"
+          [(ngModel)]="totalQuestions"
+          type="number"
+          class="max-w-3xl"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <button nz-button nzType="primary" class="mt-2" (click)="add()">
+      <i class="fa-solid fa-circle-plus mr-2"></i>
+      <span>Tạo câu hỏi</span>
+    </button>
+  </form>
+</div>

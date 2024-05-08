@@ -7,20 +7,11 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-  &:hover {
-    background-color: #f7f7f7;
-  }
-  &-index {
-    border-radius: 8px;
-    border: solid 2px #e5e5e5;
-    width: 26px;
-    height: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #afafaf;
-  }
 }
+.answer-button:hover {
+  background-color: #f7f7f7;
+}
+
 .answer-button-index {
   border-radius: 8px;
   border: solid 2px #e5e5e5;

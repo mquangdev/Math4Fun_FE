@@ -24,9 +24,11 @@ export class LoginComponent {
   ) {}
   login() {
     this.authService.login(this.form.value).subscribe(
-      (data: User) => {
+      (data: { user: User; token: string }) => {
         if (data) {
-          localStorage.setItem(KeyStorage.user_id, data.id!);
+          console.log(data);
+          localStorage.setItem(KeyStorage.user_id, data.user.id!);
+          localStorage.setItem(KeyStorage.token, data.token);
           this.router.navigate(['/main']);
         }
       },

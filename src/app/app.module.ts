@@ -14,8 +14,9 @@ import { checkLoginGuard } from './guard/checkLoginGuard';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { JwtInterceptor } from './interceptor/interceptor';
 registerLocaleData(en);
 
 @NgModule({
@@ -33,6 +34,7 @@ registerLocaleData(en);
     checkLoginGuard,
     NzMessageService,
     NzModalService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

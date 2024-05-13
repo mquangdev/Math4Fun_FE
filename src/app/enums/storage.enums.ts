@@ -4,4 +4,5 @@ export enum KeyStorage {
   course_id = 'course_id',
   chapter_id = 'chapter_id',
   lesson_id = 'lesson_id',
+  token = 'token',
 }

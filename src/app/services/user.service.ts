@@ -13,10 +13,8 @@ export class UserService {
   getById(): Observable<any> {
     return this.httpClient.get(this.URL + '/GetById');
   }
-  getAllCourseByUserId(userId: string): Observable<any> {
-    return this.httpClient.get(
-      this.COURSE_URL + '/GetAllCourseByUserId?UserId=' + userId
-    );
+  getAllCourseByUserId(): Observable<any> {
+    return this.httpClient.get(this.COURSE_URL + '/GetAllCourseByUserId');
   }
   registerCourse(body: any): Observable<any> {
     return this.httpClient.post(this.COURSE_URL + '/RegisterCourse', body);

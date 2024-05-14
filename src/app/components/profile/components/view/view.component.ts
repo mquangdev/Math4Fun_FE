@@ -32,11 +32,9 @@ export class ViewComponent implements OnInit {
     });
   }
   getListCourseByUserId() {
-    this.userService
-      .getAllCourseByUserId(localStorage.getItem(KeyStorage.user_id)!)
-      .subscribe((data) => {
-        this.listCourse = data;
-      });
+    this.userService.getAllCourseByUserId().subscribe((data) => {
+      this.listCourse = data;
+    });
   }
 
   changeAvatar(e: any) {

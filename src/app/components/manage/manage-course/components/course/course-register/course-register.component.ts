@@ -17,7 +17,7 @@ export class CourseRegisterComponent implements OnInit, OnDestroy {
     private courseService: CourseService,
     private rightBarService: RightBarService,
     private userService: UserService,
-    private noti: NotiService,
+    private noti: NotiService
   ) {}
   ngOnDestroy(): void {
     this.rightBarService.setIsShowBar({
@@ -34,25 +34,23 @@ export class CourseRegisterComponent implements OnInit, OnDestroy {
     this.getAllCourseByUserId();
   }
   getAllCourse() {
-    this.courseService
-      .getAllCourse()
-      .subscribe((data) => (this.listAllCourse = data));
+    this.courseService.getAllCourse().subscribe((data) => {
+      this.listAllCourse = data;
+      console.log(data);
+    });
   }
 
   getAllCourseByUserId() {
-    this.userService
-      .getAllCourseByUserId(localStorage.getItem(KeyStorage.user_id)!)
-      .subscribe((data) => {
-        console.log(data);
-        let listCourseRegisted = data.map((c: any) => {
-          return c.id;
-        });
-        this.listAllCourse.forEach((c: any) => {
-          if (listCourseRegisted.includes(c.id)) {
-            c.isRegisted = true;
-          }
-        });
+    this.userService.getAllCourseByUserId().subscribe((data) => {
+      let listCourseRegisted = data.map((c: any) => {
+        return c.id;
       });
+      this.listAllCourse.forEach((c: any) => {
+        if (listCourseRegisted.includes(c.id)) {
+          c.isRegisted = true;
+        }
+      });
+    });
   }
 
   selectCourse(i: number) {
@@ -72,7 +70,7 @@ export class CourseRegisterComponent implements OnInit, OnDestroy {
       },
       (err) => {
         this.noti.warning(err.error);
-      },
+      }
     );
   }
 }

@@ -20,7 +20,7 @@ export class ViewComponent implements OnInit {
     private uploadService: UploadService,
     private noti: NotiService,
     private commonService: CommonService,
-    private router: Router,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.getInfoUser();
@@ -34,11 +34,9 @@ export class ViewComponent implements OnInit {
       });
   }
   getListCourseByUserId() {
-    this.userService
-      .getAllCourseByUserId(localStorage.getItem(KeyStorage.user_id)!)
-      .subscribe((data) => {
-        this.listCourse = data;
-      });
+    this.userService.getAllCourseByUserId().subscribe((data) => {
+      this.listCourse = data;
+    });
   }
 
   changeAvatar(e: any) {
@@ -57,7 +55,7 @@ export class ViewComponent implements OnInit {
           },
           (err) => {
             this.noti.warning();
-          },
+          }
         );
       });
   }

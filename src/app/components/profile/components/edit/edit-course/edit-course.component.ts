@@ -17,15 +17,13 @@ export class EditCourseComponent implements OnInit {
     private userService: UserService,
     private modal: NzModalService,
     private courseService: CourseService,
-    private commonService: CommonService,
+    private commonService: CommonService
   ) {}
   ngOnInit(): void {
-    this.userService
-      .getAllCourseByUserId(localStorage.getItem(KeyStorage.user_id)!)
-      .subscribe((data) => {
-        console.log(data);
-        this.listCourse = data;
-      });
+    this.userService.getAllCourseByUserId().subscribe((data) => {
+      console.log(data);
+      this.listCourse = data;
+    });
   }
 
   leaveCourse(course: Course) {
@@ -33,19 +31,14 @@ export class EditCourseComponent implements OnInit {
     let confirmModal = this.modal.confirm({
       nzTitle: 'Bạn có chắc chắn muốn rời khóa học này?',
       nzOnOk: () => {
-        this.courseService
-          .leaveCourseByUser(
-            localStorage.getItem(KeyStorage.user_id)!,
-            course.id,
-          )
-          .subscribe((data) => {
-            this.listCourse = this.listCourse.filter((c) => c.id !== course.id);
-            localStorage.setItem(
-              KeyStorage.id_course_selected,
-              this.listCourse[0].id,
-            );
-            this.commonService.changeSelectedCourse(true);
-          });
+        this.courseService.leaveCourseByUser(course.id).subscribe((data) => {
+          this.listCourse = this.listCourse.filter((c) => c.id !== course.id);
+          localStorage.setItem(
+            KeyStorage.id_course_selected,
+            this.listCourse[0].id
+          );
+          this.commonService.changeSelectedCourse(true);
+        });
       },
     });
   }

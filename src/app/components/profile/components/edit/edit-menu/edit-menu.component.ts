@@ -25,21 +25,16 @@ export class EditMenuComponent implements OnInit {
     },
   ];
   public user: User = new User();
-  constructor(
-    private userService: UserService,
-    private router: Router,
-  ) {}
+  constructor(private userService: UserService, private router: Router) {}
   ngOnInit(): void {
     this.getInfoUser();
   }
 
   getInfoUser() {
-    this.userService
-      .getById(localStorage.getItem(KeyStorage.user_id)!)
-      .subscribe((data) => {
-        this.user = data;
-        console.log(this.user);
-      });
+    this.userService.getById().subscribe((data) => {
+      this.user = data;
+      console.log(this.user);
+    });
   }
   backToProfile() {
     this.router.navigate(['/main/profile']);

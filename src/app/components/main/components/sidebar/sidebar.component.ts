@@ -30,44 +30,42 @@ export class SidebarComponent implements OnInit {
   }
 
   generateSidebar() {
-    this.userService
-      .getById(localStorage.getItem(KeyStorage.user_id)!)
-      .subscribe((data) => {
-        this.role = data.role;
-        this.listSidebar = [
-          {
-            text: 'Học',
-            icon: './../../../../../assets/icons/ic-home.svg',
-            routerLink: '/main/learn',
-          },
-          {
-            text: 'Luyện tập',
-            icon: './../../../../../assets/icons/ic-practice.svg',
-          },
-          {
-            text: 'Bảng xếp hạng',
-            icon: './../../../../../assets/icons/ic-rank.svg',
-          },
-          {
-            text: 'Cửa hàng',
-            icon: './../../../../../assets/icons/ic-shop.svg',
-            routerLink: '/main/shop',
-          },
-          {
-            text: 'Hồ sơ',
-            icon: data.avatar ? data.avatar : this.anoAvatar,
-            routerLink: '/main/profile',
-            type: 'avatar',
-          },
-        ];
-        if (this.role === 1) {
-          this.listSidebar.push({
-            text: 'Quản trị',
-            icon: './../../../../../assets/icons/ic-admin.png',
-            routerLink: '/main/manage',
-          });
-        }
-      });
+    this.userService.getById().subscribe((data) => {
+      this.role = data.role;
+      this.listSidebar = [
+        {
+          text: 'Học',
+          icon: './../../../../../assets/icons/ic-home.svg',
+          routerLink: '/main/learn',
+        },
+        {
+          text: 'Luyện tập',
+          icon: './../../../../../assets/icons/ic-practice.svg',
+        },
+        {
+          text: 'Bảng xếp hạng',
+          icon: './../../../../../assets/icons/ic-rank.svg',
+        },
+        {
+          text: 'Cửa hàng',
+          icon: './../../../../../assets/icons/ic-shop.svg',
+          routerLink: '/main/shop',
+        },
+        {
+          text: 'Hồ sơ',
+          icon: data.avatar ? data.avatar : this.anoAvatar,
+          routerLink: '/main/profile',
+          type: 'avatar',
+        },
+      ];
+      if (this.role === 1) {
+        this.listSidebar.push({
+          text: 'Quản trị',
+          icon: './../../../../../assets/icons/ic-admin.png',
+          routerLink: '/main/manage',
+        });
+      }
+    });
   }
   logout() {
     localStorage.clear();

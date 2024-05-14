@@ -10,8 +10,8 @@ export class UserService {
   URL = `${API_URL}/User`;
   COURSE_URL = `${API_URL}/Course`;
   constructor(private httpClient: HttpClient) {}
-  getById(id: string): Observable<any> {
-    return this.httpClient.get(this.URL + '/GetById?id=' + id);
+  getById(): Observable<any> {
+    return this.httpClient.get(this.URL + '/GetById');
   }
   getAllCourseByUserId(userId: string): Observable<any> {
     return this.httpClient.get(

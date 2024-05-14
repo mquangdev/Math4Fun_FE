@@ -19,7 +19,7 @@ export class RightBarComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private commonService: CommonService,
-    private modal: NzModalService,
+    private modal: NzModalService
   ) {}
   ngOnInit(): void {
     this.getAllCourseByUserId();
@@ -37,11 +37,11 @@ export class RightBarComponent implements OnInit {
           this.courseSelected = this.listCourse[0];
           localStorage.setItem(
             KeyStorage.id_course_selected,
-            this.courseSelected.id,
+            this.courseSelected.id
           );
         } else {
           let idCourseSelected = localStorage.getItem(
-            KeyStorage.id_course_selected,
+            KeyStorage.id_course_selected
           );
           this.listCourse.map((c: any) => {
             if (c.id === idCourseSelected) {
@@ -55,11 +55,9 @@ export class RightBarComponent implements OnInit {
   }
 
   getUserById() {
-    this.userService
-      .getById(localStorage.getItem(KeyStorage.user_id)!)
-      .subscribe((data) => {
-        this.user = data;
-      });
+    this.userService.getById().subscribe((data) => {
+      this.user = data;
+    });
   }
 
   addCourse() {

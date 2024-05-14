@@ -20,18 +20,16 @@ export class ViewComponent implements OnInit {
     private uploadService: UploadService,
     private noti: NotiService,
     private commonService: CommonService,
-    private router: Router,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.getInfoUser();
     this.getListCourseByUserId();
   }
   getInfoUser() {
-    this.userService
-      .getById(localStorage.getItem(KeyStorage.user_id)!)
-      .subscribe((data) => {
-        this.userInfo = data;
-      });
+    this.userService.getById().subscribe((data) => {
+      this.userInfo = data;
+    });
   }
   getListCourseByUserId() {
     this.userService
@@ -57,7 +55,7 @@ export class ViewComponent implements OnInit {
           },
           (err) => {
             this.noti.warning();
-          },
+          }
         );
       });
   }

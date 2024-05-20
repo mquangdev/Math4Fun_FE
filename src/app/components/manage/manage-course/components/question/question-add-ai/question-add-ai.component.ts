@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { QuestionType } from 'src/app/enums/question.enums';
 import { NotiService } from 'src/app/services/noti.service';
+import { QuestionService } from 'src/app/services/question.service';
 
 @Component({
   selector: 'app-question-add-ai',
@@ -32,13 +33,34 @@ export class QuestionAddAiComponent {
     },
   ];
   public form: FormGroup = this.fb.group({
-    text: [''],
-    answer: [null],
+    content: '',
+    totalQuestions: 1,
   });
   constructor(
     private fb: FormBuilder,
     private noti: NotiService,
-    private router: Router
+    private router: Router,
+    private questionService: QuestionService
   ) {}
-  add() {}
+  add() {
+    if (!this.content.trim() || !this.totalQuestions) {
+      return;
+    }
+    let body = {
+      content: this.content.trim(),
+      numberQuestion: this.totalQuestions,
+      type: this.typeQuestion,
+    };
+    this.questionService.addQuestionAI(body).subscribe(
+      (data) => {
+        console.log(data);
+        // this.noti.success();
+      },
+      (err) => {
+        console.log(err);
+        // this.add();
+        // this.noti.warning();
+      }
+    );
+  }
 }

@@ -21,4 +21,5 @@ export class Question {
   isWrong?: boolean;
   index?: number;
   textBonus?: string;
+  isAiGen?: boolean;
 }

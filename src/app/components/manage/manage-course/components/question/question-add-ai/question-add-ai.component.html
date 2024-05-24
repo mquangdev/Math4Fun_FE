@@ -1,6 +1,6 @@
 <app-header text="Thêm mới câu hỏi tự động"></app-header>
 <div class="flex flex-col gap-y-3 mt-5">
-  <form [formGroup]="form" nz-form nzLayout="vertical">
+  <form [formGroup]="form" nz-form nzLayout="vertical" (ngSubmit)="onAdd()">
     <nz-form-item>
       <nz-form-label nzRequired>Kiểu câu hỏi</nz-form-label>
       <nz-form-control nzErrorTip="Trường này là bắt buộc">
@@ -8,8 +8,7 @@
           class="w-fit"
           nzPlaceHolder="Chọn kiểu câu hỏi"
           style="width: 200px !important"
-          [(ngModel)]="typeQuestion"
-          [ngModelOptions]="{ standalone: true }"
+          formControlName="typeQuestion"
         >
           <nz-option
             *ngFor="let option of questionType"
@@ -17,6 +16,15 @@
             [nzLabel]="option.text"
           ></nz-option>
         </nz-select>
+        <div
+          *ngIf="
+            form.get('typeQuestion')?.invalid &&
+            form.get('typeQuestion')?.touched
+          "
+          class="text-red-500"
+        >
+          This field is required
+        </div>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -27,11 +35,16 @@
           style="margin-top: 8px !important"
           rows="2"
           nz-input
-          [(ngModel)]="content"
-          [ngModelOptions]="{ standalone: true }"
+          formControlName="content"
           class="!max-w-3xl"
         ></textarea>
       </nz-form-control>
+      <div
+        *ngIf="form.get('content')?.invalid && form.get('content')?.touched"
+        class="text-red-500"
+      >
+        This field is required
+      </div>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label nzRequired>Số lượng câu hỏi</nz-form-label>
@@ -39,15 +52,32 @@
         <input
           nz-input
           placeholder="Nhập số lượng câu hỏi"
-          [(ngModel)]="totalQuestions"
+          formControlName="totalQuestions"
           type="number"
           class="max-w-3xl"
         />
+        <div
+          *ngIf="
+            form.get('totalQuestions')?.invalid &&
+            form.get('totalQuestions')?.touched
+          "
+          class="text-red-500"
+        >
+          This field is required
+        </div>
       </nz-form-control>
     </nz-form-item>
-    <button nz-button nzType="primary" class="mt-2" (click)="add()">
-      <i class="fa-solid fa-circle-plus mr-2"></i>
-      <span>Tạo câu hỏi</span>
+    <button
+      [disabled]="isLoading"
+      type="submit"
+      nz-button
+      nzType="primary"
+      class="mt-2"
+    >
+      <i *ngIf="isLoading" class="fa-solid fa-spinner animate-spin mr-2"></i>
+      <i *ngIf="!isLoading" class="fa-solid fa-circle-plus mr-2"></i>
+      <span *ngIf="!isLoading">Tạo câu hỏi</span>
+      <span *ngIf="isLoading">Đang tạo câu hỏi</span>
     </button>
   </form>
 </div>

@@ -148,16 +148,15 @@ export class QuestionAddComponent implements OnInit {
       lessonId: this.lessonId,
       answerList: this.listAnswer,
     };
-    console.log(body);
-    // this.questionService.addQuestion(body).subscribe(
-    //   (data) => {
-    //     this.noti.success('Thêm câu hỏi thành công');
-    //     this.router.navigate(['/main/manage-course/lesson', this.lessonId]);
-    //   },
-    //   (err) => {
-    //     this.noti.warning();
-    //   }
-    // );
+    this.questionService.addQuestion(body).subscribe(
+      (data) => {
+        this.noti.success('Thêm câu hỏi thành công');
+        this.router.navigate(['/main/manage-course/lesson', this.lessonId]);
+      },
+      (err) => {
+        this.noti.warning();
+      }
+    );
   }
   addTypeTypeToBlank() {
     let body = {
@@ -167,16 +166,15 @@ export class QuestionAddComponent implements OnInit {
       value: this.answerValue.trim(),
       lessonId: this.lessonId,
     };
-    console.log(body);
-    // this.questionService.addQuestion(body).subscribe(
-    //   (data) => {
-    //     this.noti.success('Thêm câu hỏi thành công');
-    //     this.router.navigate(['/main/manage-course/lesson', this.lessonId]);
-    //   },
-    //   (err) => {
-    //     this.noti.warning();
-    //   }
-    // );
+    this.questionService.addQuestion(body).subscribe(
+      (data) => {
+        this.noti.success('Thêm câu hỏi thành công');
+        this.router.navigate(['/main/manage-course/lesson', this.lessonId]);
+      },
+      (err) => {
+        this.noti.warning();
+      }
+    );
   }
   // ---- End Add Type ----
 }

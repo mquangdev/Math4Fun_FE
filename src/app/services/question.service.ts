@@ -25,6 +25,9 @@ export class QuestionService {
   addQuestionAI(body: any): Observable<any> {
     return this.http.post(this.URL_GPT + '/create-question', body);
   }
+  testAI(): Observable<any> {
+    return this.http.get(this.URL_GPT + '/test');
+  }
   addQuestionListToDb(body: any): Observable<any> {
     return this.http.post(this.URL + '/AddQuestionToDb', body);
   }

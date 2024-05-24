@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { QuestionType } from 'src/app/enums/question.enums';
 import { KeyStorage } from 'src/app/enums/storage.enums';
+import { Lesson } from 'src/app/models/course.models';
 import { LessonService } from 'src/app/services/lesson.service';
 import { NotiService } from 'src/app/services/noti.service';
-import { QuestionAddComponent } from '../../question/question-add/question-add.component';
 import { QuestionService } from 'src/app/services/question.service';
-import { QuestionType } from 'src/app/enums/question.enums';
 
 @Component({
   selector: 'app-leson-detail',
@@ -21,7 +21,7 @@ export class LessonDetailComponent implements OnInit {
   });
   public lessonId: string = '';
   public chapterId: string = '';
-  public lesson: any;
+  public lesson: Lesson = new Lesson();
   public QuestionType = QuestionType;
   constructor(
     private fb: FormBuilder,

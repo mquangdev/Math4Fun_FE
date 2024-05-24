@@ -44,10 +44,13 @@
       <i class="fa-brands fa-slack mr-2"></i>
       <span>Tự động tạo câu hỏi</span>
     </button>
-    <div class="flex items-center gap-x-3 mt-3" *ngIf="lesson">
+    <div
+      class="grid grid-cols-5 items-stretch gap-3 mt-3 flex-wrap"
+      *ngIf="lesson"
+    >
       <div
         *ngFor="let question of lesson.questionList; index as i"
-        class="flex items-center"
+        class="flex items-center flex-1"
         (click)="detailQuestion(question)"
       >
         <div class="border-hover question">
@@ -66,8 +69,14 @@
               Điền số vào chỗ trống
             </div>
           </ng-container>
+          <ng-container *ngIf="question.isAiGen">
+            <div class="flex items-center gap-x-1 italic text-green-500">
+              <i class="fa-brands fa-slack mr-2"></i>
+              <div>Câu hỏi tự động</div>
+            </div>
+          </ng-container>
           <div
-            (click)="removeQuestion(question.id); $event.stopPropagation()"
+            (click)="removeQuestion(question.id!); $event.stopPropagation()"
             class="question-remove text-lg"
           >
             <i class="fa-solid fa-circle-xmark"></i>

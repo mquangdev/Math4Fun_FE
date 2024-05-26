@@ -22,4 +22,9 @@ export class UserService {
   updateInfo(body: any): Observable<any> {
     return this.httpClient.post(this.URL + '/Update', body);
   }
+  getAllUsers(page: number, limit: number, keyword?: string): Observable<any> {
+    return this.httpClient.get(
+      this.URL + `/GetAll?page=${page}&limit=${limit}&keyword=${keyword}`
+    );
+  }
 }

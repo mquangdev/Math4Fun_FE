@@ -31,7 +31,14 @@ const routes: Routes = [
         path: 'manage-course',
         loadChildren: () =>
           import('./../manage/manage-course/manage-course.module').then(
-            (m) => m.ManageCourseModule,
+            (m) => m.ManageCourseModule
+          ),
+      },
+      {
+        path: 'manage-users',
+        loadChildren: () =>
+          import('./../manage/manage-users/manage-users.module').then(
+            (m) => m.ManageUsersModule
           ),
       },
       {

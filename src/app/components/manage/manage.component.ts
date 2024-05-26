@@ -15,16 +15,19 @@ export class ManageComponent {
       routerLink: '/main/manage-course',
     },
     {
-      text: 'Nhiệm vụ',
-      icon: './../../../assets/icons/ic-mission.svg',
-    },
-    {
       text: 'Người dùng',
       icon: './../../../assets/icons/ic-students.png',
+      routerLink: '/main/manage-users',
+    },
+    {
+      text: 'Nhiệm vụ',
+      icon: './../../../assets/icons/ic-mission.svg',
+      isComingSoon: true,
     },
     {
       text: 'Cửa hàng',
       icon: './../../../assets/icons/ic-shop.svg',
+      isComingSoon: true,
     },
   ];
   constructor(private rightBarService: RightBarService) {
@@ -39,4 +42,5 @@ export class Detail {
   text?: string;
   icon?: string;
   routerLink?: string;
+  isComingSoon?: boolean;
 }

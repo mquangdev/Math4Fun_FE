@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { KeyStorage } from 'src/app/enums/storage.enums';
 import { CommonService } from 'src/app/services/common.service';
-import { RightBarService } from 'src/app/services/right-bar.service';
 import { UserService } from 'src/app/services/user.service';
+import { StreakComponent } from './streak/streak.component';
 
 @Component({
   selector: 'app-right-bar',
@@ -78,6 +78,13 @@ export class RightBarComponent implements OnInit {
         localStorage.setItem(KeyStorage.id_course_selected, course.id);
         this.commonService.changeSelectedCourse(true);
       },
+    });
+  }
+
+  openStreakCalendar() {
+    let modal = this.modal.create<StreakComponent>({
+      nzTitle: 'Streak',
+      nzContent: StreakComponent,
     });
   }
 }

@@ -35,7 +35,11 @@
   <div
     [routerLink]="sidebar.routerLink"
     routerLinkActive="active"
-    class="py-3 px-4 flex items-center mb-3 hover:bg-[#f7f7f7] rounded-xl cursor-pointer"
+    [ngClass]="{
+      'py-3 px-4 flex items-center mb-3 rounded-xl': true,
+      'hover:bg-[#f7f7f7] cursor-pointer': !sidebar.isComingSoon,
+      'opacity-70 cursor-not-allowed relative': sidebar.isComingSoon
+    }"
   >
     <img
       *ngIf="!sidebar.type"
@@ -44,6 +48,12 @@
       [src]="sidebar.icon"
       alt=""
       class="mr-5"
+    />
+    <img
+      *ngIf="sidebar.isComingSoon"
+      [src]="comingSoonImg"
+      alt="comingSoon"
+      class="absolute w-20 right-0 object-contain"
     />
     <img
       *ngIf="sidebar.type === 'avatar'"

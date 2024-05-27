@@ -5,6 +5,7 @@ import { NotiService } from 'src/app/services/noti.service';
 import { UploadService } from 'src/app/services/upload.service';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import IMAGE from 'src/app/const/image';
 
 @Component({
   selector: 'app-view',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class ViewComponent implements OnInit {
   public userInfo: any;
-  public anoAva: string = './../../../../../assets/images/img-avatar-ano.png';
+  public anoAva = IMAGE.anoAvatar;
   public listCourse: any[] = [];
   constructor(
     private userService: UserService,

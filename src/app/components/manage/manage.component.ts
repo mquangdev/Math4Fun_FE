@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import IMAGE from 'src/app/const/image';
 import { RightBarService } from 'src/app/services/right-bar.service';
 
 @Component({
@@ -30,6 +31,7 @@ export class ManageComponent {
       isComingSoon: true,
     },
   ];
+  public comingSoonImg = IMAGE.comingSoonImg;
   constructor(private rightBarService: RightBarService) {
     this.rightBarService.setIsShowBar({
       left: true,

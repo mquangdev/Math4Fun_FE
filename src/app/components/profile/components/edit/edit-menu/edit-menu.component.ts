@@ -3,6 +3,7 @@ import { UserService } from '../../../../../services/user.service';
 import { KeyStorage } from '../../../../../enums/storage.enums';
 import { User } from '../../../../../models/user.model';
 import { Router } from '@angular/router';
+import IMAGE from 'src/app/const/image';
 
 @Component({
   selector: 'app-edit-menu',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-menu.component.scss'],
 })
 export class EditMenuComponent implements OnInit {
+  public anoAvatar = IMAGE.anoAvatar;
   public listMenu = [
     {
       text: 'Tài khoản',

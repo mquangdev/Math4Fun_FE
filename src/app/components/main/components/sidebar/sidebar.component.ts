@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { KeyStorage } from 'src/app/enums/storage.enums';
-import { AuthService } from 'src/app/services/auth.service';
+import IMAGE from 'src/app/const/image';
 import { CommonService } from 'src/app/services/common.service';
 import { UserService } from 'src/app/services/user.service';
-
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -13,8 +11,8 @@ import { UserService } from 'src/app/services/user.service';
 export class SidebarComponent implements OnInit {
   public role: number = 0;
   public listSidebar: Sidebar[] = [];
-  public anoAvatar: string =
-    './../../../../../assets/images/img-avatar-ano.png';
+  public anoAvatar = IMAGE.anoAvatar;
+  public comingSoonImg = IMAGE.comingSoonImg;
   constructor(
     private userService: UserService,
     private router: Router,
@@ -41,15 +39,18 @@ export class SidebarComponent implements OnInit {
         {
           text: 'Luyện tập',
           icon: './../../../../../assets/icons/ic-practice.svg',
+          isComingSoon: true,
         },
         {
           text: 'Bảng xếp hạng',
           icon: './../../../../../assets/icons/ic-rank.svg',
+          isComingSoon: true,
         },
         {
           text: 'Cửa hàng',
           icon: './../../../../../assets/icons/ic-shop.svg',
-          routerLink: '/main/shop',
+          // routerLink: '/main/shop',
+          isComingSoon: true,
         },
         {
           text: 'Hồ sơ',
@@ -78,4 +79,5 @@ export class Sidebar {
   icon?: string;
   routerLink?: string;
   type?: string;
+  isComingSoon?: boolean;
 }

@@ -1,1 +1,101 @@
-<p>list-users works!</p>
+<div class="font-semibold text-2xl">Số lượng người dùng ({{ total }})</div>
+<div class="overflow-x-auto">
+  <nz-table
+    (nzPageIndexChange)="pageIndexChange($event)"
+    [nzTotal]="total"
+    [nzPageIndex]="page"
+    [nzPageSize]="limit"
+    class="mt-10 min-w-[1000px]"
+    #basicTable
+    [nzData]="listData"
+    [nzBordered]="true"
+    [nzNoResult]="'Không có dữ liệu nào'"
+  >
+    <thead>
+      <tr>
+        <th>Avatar</th>
+        <th>
+          Tên đăng nhập
+          <nz-filter-trigger
+            [nzVisible]="visibleFilterHeader('username')"
+            [nzActive]="activeFilterHeader('username')"
+            [nzDropdownMenu]="menu"
+          >
+            <span
+              (click)="typeSearch = 'username'"
+              nz-icon
+              nzType="search"
+            ></span>
+          </nz-filter-trigger>
+        </th>
+        <th>
+          Tên
+          <nz-filter-trigger
+            [nzVisible]="visibleFilterHeader('name')"
+            [nzActive]="activeFilterHeader('name')"
+            [nzDropdownMenu]="menu"
+          >
+            <span (click)="typeSearch = 'name'" nz-icon nzType="search"></span>
+          </nz-filter-trigger>
+        </th>
+        <th>
+          Email
+          <nz-filter-trigger
+            [nzVisible]="visibleFilterHeader('email')"
+            [nzActive]="activeFilterHeader('email')"
+            [nzDropdownMenu]="menu"
+          >
+            <span (click)="typeSearch = 'email'" nz-icon nzType="search"></span>
+          </nz-filter-trigger>
+        </th>
+        <th>Giới tính</th>
+        <th>Ngày sinh</th>
+        <th>Ngày tạo tài khoản</th>
+        <th>Vai trò</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>
+          <img
+            class="w-14 h-14"
+            [src]="data.avatar || defaultAvatar"
+            alt="avatar"
+          />
+        </td>
+        <td>{{ data.username || "-" }}</td>
+        <td>{{ data.fullname || "-" }}</td>
+        <td>{{ data.email || "-" }}</td>
+        <td>{{ data.gender || "-" }}</td>
+        <td>{{ data.dob | date }}</td>
+        <td>{{ data.dateJoin | date }}</td>
+        <td>
+          <div *ngIf="data.role === ROLE_OBJECT.USER">Người dùng</div>
+          <div *ngIf="data.role === ROLE_OBJECT.ADMIN">Quản trị viên</div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input
+          type="text"
+          nz-input
+          placeholder="Search"
+          [(ngModel)]="searchValue"
+        />
+        <button
+          nz-button
+          nzSize="small"
+          nzType="primary"
+          (click)="search()"
+          class="search-button"
+        >
+          Search
+        </button>
+        <button nz-button nzSize="small" (click)="reset()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+</div>

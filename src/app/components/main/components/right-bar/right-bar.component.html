@@ -16,8 +16,7 @@
     <span nz-icon nzType="down"></span>
   </div>
   <div
-    nz-dropdown
-    [nzDropdownMenu]="streakMenu"
+    (click)="openStreakCalendar()"
     class="hover:bg-gray-50 rounded-2xl px-3 py-2"
   >
     <img src="./../../../../../assets/icons/ic-streak.svg" alt="" />
@@ -60,9 +59,7 @@
       </ul>
     </div>
   </nz-dropdown-menu>
-  <nz-dropdown-menu #streakMenu="nzDropdownMenu">
-    <div>123123</div>
-  </nz-dropdown-menu>
+
   <nz-dropdown-menu #lingoutMenu="nzDropdownMenu">
     <div
       class="w-72 bg-white border-[2px] border-solid rounded-lg p-3 border-gray-500 flex items-center gap-x-2"

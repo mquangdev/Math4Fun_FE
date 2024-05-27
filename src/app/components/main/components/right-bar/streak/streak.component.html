@@ -1,0 +1,28 @@
+<div class="w-full bg-[#fff5d3] p-4">
+  <div class="flex items-center justify-between">
+    <div class="text-4xl text-[#ebc37f] font-bold">0 ngày streak</div>
+    <img [src]="streakLostIcon" alt="icon-lost-streak" />
+  </div>
+  <div class="rounded-xl p-4 bg-white flex items-center gap-x-2">
+    <img [src]="clockIcon" alt="clock" />
+    <div class="text-lg font-medium text-gray-500">
+      Học một bài học ngay hôm nay để bắt đầu chuỗi streak mới nào!
+    </div>
+  </div>
+</div>
+
+<div class="p-4">
+  <div class="font-semibold text-2xl mb-2">Lịch</div>
+  <div class="mx-auto w-full rounded-xl border-[2px] border-[#d9d9d9] p-2">
+    <nz-calendar
+      [nzFullscreen]="false"
+      [(ngModel)]="date"
+      [(nzMode)]="mode"
+      (nzPanelChange)="panelChange($event)"
+    >
+      <!-- <div *nzDateCell="let date">
+        <img [src]="streakIcon" alt="streak-icon" />
+      </div> -->
+    </nz-calendar>
+  </div>
+</div>

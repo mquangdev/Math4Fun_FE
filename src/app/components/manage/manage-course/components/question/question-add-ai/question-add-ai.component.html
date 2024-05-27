@@ -68,7 +68,7 @@
       </nz-form-control>
     </nz-form-item>
     <button
-      [disabled]="isLoading"
+      [disabled]="isLoading || form.invalid"
       type="submit"
       nz-button
       nzType="primary"

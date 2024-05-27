@@ -50,14 +50,21 @@
     <ng-container *ngIf="course">
       <div class="flex items-center gap-x-3">
         <div
-          *ngFor="let chapter of course.chapterList"
+          *ngFor="let chapter of course.chapterList; index as i"
           class="flex items-center"
           (click)="detailChapter()"
           [routerLink]="['/main/manage-course/chapter', chapter.id]"
         >
           <div class="border-hover chapter max-w-[200px] flex flex-col">
-            <div class="text-xl mt-2 line-clamp-4 overflow-hidden h-[120px]">
+            <div
+              class="text-xl mt-2 line-clamp-4 overflow-hidden max-h-[120px]"
+            >
               {{ chapter.title }}
+            </div>
+            <div
+              class="font-semibold text-2xl my-2 rounded-full w-10 h-10 flex items-center justify-center bg-blue-500 text-white"
+            >
+              {{ i + 1 }}
             </div>
             <div class="text-gray-400 line-clamp-2">{{ chapter.subTile }}</div>
             <div

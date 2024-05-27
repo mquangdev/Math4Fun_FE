@@ -4,6 +4,7 @@ import { TableComponent } from './table/table.component';
 import { UploadImageComponent } from './upload-image/upload-image.component';
 import { HeaderComponent } from './header/header.component';
 import { MathjaxComponent } from './mathjax/mathjax.component';
+import { ButtonComponent } from './button/button.component';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import { MathjaxComponent } from './mathjax/mathjax.component';
     UploadImageComponent,
     HeaderComponent,
     MathjaxComponent,
+    ButtonComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -18,6 +20,7 @@ import { MathjaxComponent } from './mathjax/mathjax.component';
     UploadImageComponent,
     HeaderComponent,
     MathjaxComponent,
+    ButtonComponent,
   ],
 })
 export class ReuseableModule {}

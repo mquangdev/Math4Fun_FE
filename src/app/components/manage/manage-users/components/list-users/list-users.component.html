@@ -57,11 +57,13 @@
     <tbody>
       <tr *ngFor="let data of basicTable.data">
         <td>
-          <img
-            class="w-14 h-14"
-            [src]="data.avatar || defaultAvatar"
-            alt="avatar"
-          />
+          <div class="w-14 h-14 overflow-hidden rounded-full">
+            <img
+              class="object-contain"
+              [src]="data.avatar || defaultAvatar"
+              alt="avatar"
+            />
+          </div>
         </td>
         <td>{{ data.username || "-" }}</td>
         <td>{{ data.fullname || "-" }}</td>

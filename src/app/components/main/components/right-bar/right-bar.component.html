@@ -17,9 +17,25 @@
   </div>
   <div
     (click)="openStreakCalendar()"
-    class="hover:bg-gray-50 rounded-2xl px-3 py-2"
+    class="hover:bg-gray-50 rounded-2xl px-3 py-2 flex items-center gap-x-2 font-semibold"
+    [ngClass]="
+      streakCurrent && streakCurrent!.currentStreakCount >= 1
+        ? 'text-[#ff9600]'
+        : 'text-[#e7e7e7]'
+    "
   >
-    <img src="./../../../../../assets/icons/ic-streak.svg" alt="" />
+    <img
+      *ngIf="
+        !streakCurrent || streakCurrent?.currentStreakCount === 0;
+        else icLost
+      "
+      src="./../../../../../assets/icons/ic-streak-lost.svg"
+      alt=""
+    />
+    <ng-template #icLost>
+      <img src="./../../../../../assets/icons/ic-streak.svg" alt="" />
+    </ng-template>
+    {{ streakCurrent?.currentStreakCount || 0 }}
   </div>
   <div
     nz-dropdown
@@ -71,6 +87,7 @@
         <div
           [routerLink]="['/main/shop']"
           class="uppercase text-blue-400 font-semibold text-base cursor-pointer hover:opacity-70"
+          k
         >
           Đến cửa hàng
         </div>

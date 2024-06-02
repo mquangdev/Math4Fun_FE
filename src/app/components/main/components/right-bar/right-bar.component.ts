@@ -5,6 +5,9 @@ import { KeyStorage } from 'src/app/enums/storage.enums';
 import { CommonService } from 'src/app/services/common.service';
 import { UserService } from 'src/app/services/user.service';
 import { StreakComponent } from './streak/streak.component';
+import { HttpClient } from '@angular/common/http';
+import { StreakService } from 'src/app/services/streak.service';
+import { StreakCurrent } from 'src/app/models/streak.models';
 
 @Component({
   selector: 'app-right-bar',
@@ -15,15 +18,23 @@ export class RightBarComponent implements OnInit {
   public listCourse: any = [];
   public courseSelected: any;
   public user: any;
+  public streakCurrent?: StreakCurrent;
   constructor(
     private userService: UserService,
     private router: Router,
     private commonService: CommonService,
-    private modal: NzModalService
+    private modal: NzModalService,
+    private streakService: StreakService
   ) {}
   ngOnInit(): void {
     this.getAllCourseByUserId();
     this.getUserById();
+    this.getCurrentStreak();
+  }
+  getCurrentStreak() {
+    this.streakService.getCurrentStreak().subscribe((data) => {
+      this.streakCurrent = data;
+    });
   }
   getAllCourseByUserId() {
     this.userService.getAllCourseByUserId().subscribe((data) => {

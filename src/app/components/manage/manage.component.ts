@@ -23,11 +23,13 @@ export class ManageComponent {
     {
       text: 'Nhiệm vụ',
       icon: './../../../assets/icons/ic-mission.svg',
+      routerLink: '/main/manage',
       isComingSoon: true,
     },
     {
       text: 'Cửa hàng',
       icon: './../../../assets/icons/ic-shop.svg',
+      routerLink: '/main/manage',
       isComingSoon: true,
     },
   ];

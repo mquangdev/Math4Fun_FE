@@ -2,6 +2,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile.component';
 import { ViewComponent } from './components/view/view.component';
 import { EditComponent } from './components/edit/edit.component';
+import { FindUserComponent } from './components/find-user/find-user.component';
+import { DetailFriendComponent } from './components/detail-friend/detail-friend.component';
 
 const routes: Routes = [
   {
@@ -16,6 +18,14 @@ const routes: Routes = [
         path: 'edit',
         loadChildren: () =>
           import('./components/edit/edit.module').then((m) => m.EditModule),
+      },
+      {
+        path: 'find-user',
+        component: FindUserComponent,
+      },
+      {
+        path: 'detail-user/:id',
+        component: DetailFriendComponent,
       },
     ],
   },

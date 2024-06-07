@@ -10,11 +10,15 @@ export class UserService {
   URL = `${API_URL}/User`;
   COURSE_URL = `${API_URL}/Course`;
   constructor(private httpClient: HttpClient) {}
-  getById(): Observable<any> {
-    return this.httpClient.get(this.URL + '/GetById');
+  getById(anotherUserId?: string): Observable<any> {
+    let url = `${this.URL}/GetById`;
+    if (anotherUserId) url += `?anotherUserId=${anotherUserId}`;
+    return this.httpClient.get(url);
   }
-  getAllCourseByUserId(): Observable<any> {
-    return this.httpClient.get(this.COURSE_URL + '/GetAllCourseByUserId');
+  getAllCourseByUserId(anotherUserId?: string): Observable<any> {
+    let url = `${this.COURSE_URL}/GetAllCourseByUserId`;
+    if (anotherUserId) url += `?anotherUserId=${anotherUserId}`;
+    return this.httpClient.get(url);
   }
   registerCourse(body: any): Observable<any> {
     return this.httpClient.post(this.COURSE_URL + '/RegisterCourse', body);

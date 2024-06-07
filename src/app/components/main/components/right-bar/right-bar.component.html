@@ -19,14 +19,14 @@
     (click)="openStreakCalendar()"
     class="hover:bg-gray-50 rounded-2xl px-3 py-2 flex items-center gap-x-2 font-semibold"
     [ngClass]="
-      streakCurrent && streakCurrent!.currentStreakCount >= 1
+      streakCurrent && streakCurrent.streak.currentStreakCount >= 1
         ? 'text-[#ff9600]'
         : 'text-[#e7e7e7]'
     "
   >
     <img
       *ngIf="
-        !streakCurrent || streakCurrent?.currentStreakCount === 0;
+        !streakCurrent || streakCurrent?.streak?.currentStreakCount === 0;
         else icLost
       "
       src="./../../../../../assets/icons/ic-streak-lost.svg"
@@ -35,7 +35,7 @@
     <ng-template #icLost>
       <img src="./../../../../../assets/icons/ic-streak.svg" alt="" />
     </ng-template>
-    {{ streakCurrent?.currentStreakCount || 0 }}
+    {{ streakCurrent?.streak?.currentStreakCount || 0 }}
   </div>
   <div
     nz-dropdown
@@ -94,4 +94,11 @@
       </div>
     </div>
   </nz-dropdown-menu>
+  <ng-template #closeIcon>
+    <div
+      class="w-7 h-7 hover rounded-full bg-white flex items-center justify-center mt-2 mr-auto"
+    >
+      <i class="fa-solid fa-xmark text-xl"></i>
+    </div>
+  </ng-template>
 </div>

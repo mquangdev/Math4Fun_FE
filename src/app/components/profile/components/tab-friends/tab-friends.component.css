@@ -1,0 +1,9 @@
+.active-tab {
+  padding-bottom: 10px;
+  border-bottom: 2px solid #1cb0f6;
+}
+
+.not-active-tab {
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e5e5e5;
+}

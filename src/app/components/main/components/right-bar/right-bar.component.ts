@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { KeyStorage } from 'src/app/enums/storage.enums';
@@ -7,7 +7,10 @@ import { UserService } from 'src/app/services/user.service';
 import { StreakComponent } from './streak/streak.component';
 import { HttpClient } from '@angular/common/http';
 import { StreakService } from 'src/app/services/streak.service';
-import { StreakCurrent } from 'src/app/models/streak.models';
+import {
+  StreakCurrent,
+  StreakUpdateResponse,
+} from 'src/app/models/streak.models';
 
 @Component({
   selector: 'app-right-bar',
@@ -15,10 +18,11 @@ import { StreakCurrent } from 'src/app/models/streak.models';
   styleUrls: ['./right-bar.component.scss'],
 })
 export class RightBarComponent implements OnInit {
+  @ViewChild('closeIcon', { read: TemplateRef }) closeIcon!: TemplateRef<any>;
   public listCourse: any = [];
   public courseSelected: any;
   public user: any;
-  public streakCurrent?: StreakCurrent;
+  public streakCurrent?: StreakUpdateResponse;
   constructor(
     private userService: UserService,
     private router: Router,
@@ -32,9 +36,15 @@ export class RightBarComponent implements OnInit {
     this.getCurrentStreak();
   }
   getCurrentStreak() {
-    this.streakService.getCurrentStreak().subscribe((data) => {
-      this.streakCurrent = data;
-    });
+    this.streakService
+      .getCurrentStreak()
+      .subscribe((data: StreakUpdateResponse) => {
+        this.streakCurrent = data;
+        this.commonService.setStreakInformation(this.streakCurrent.streak);
+        if (!data.isContinueStreakUpdate) {
+          console.log('Không ổn rồi!');
+        }
+      });
   }
   getAllCourseByUserId() {
     this.userService.getAllCourseByUserId().subscribe((data) => {
@@ -94,8 +104,14 @@ export class RightBarComponent implements OnInit {
 
   openStreakCalendar() {
     let modal = this.modal.create<StreakComponent>({
-      nzTitle: 'Streak',
       nzContent: StreakComponent,
+      nzClassName: 'fullModal',
+      nzBodyStyle: {
+        padding: '0px',
+        // maxHeight: 'calc(100vh - 200px)',
+        // overflowY: 'auto',
+      },
+      nzCloseIcon: this.closeIcon,
     });
   }
 }

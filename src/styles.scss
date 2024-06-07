@@ -70,3 +70,7 @@ button:disabled {
 .button-82-pushable:focus:not(:focus-visible) {
   outline: none;
 }
+
+.hover {
+  @apply cursor-pointer hover:opacity-70;
+}

@@ -1,16 +1,56 @@
-<div class="w-full bg-[#fff5d3] p-4">
+<div
+  class="w-full p-4 pt-20"
+  [ngClass]="
+    !streakCurrent || streakCurrent.streak.currentStreakCount === 0
+      ? 'bg-[#fff5d3] text-[#ebc37f]'
+      : 'bg-[#ff9600] text-white'
+  "
+>
   <div class="flex items-center justify-between">
-    <div class="text-4xl text-[#ebc37f] font-bold">0 ngày streak</div>
-    <img [src]="streakLostIcon" alt="icon-lost-streak" />
+    <div class="text-4xl font-bold">
+      {{ streakCurrent?.streak?.currentStreakCount || 0 }} ngày streak
+    </div>
+    <img
+      *ngIf="
+        streakCurrent?.streak?.currentStreakCount === 0;
+        else successStreak
+      "
+      [src]="streakLostIcon"
+      alt="icon-lost-streak"
+    />
+    <ng-template #successStreak>
+      <img [src]="streakIcon" alt="icon-streak" class="h-[74px] object-cover" />
+    </ng-template>
   </div>
-  <div class="rounded-xl p-4 bg-white flex items-center gap-x-2">
-    <img [src]="clockIcon" alt="clock" />
-    <div class="text-lg font-medium text-gray-500">
+  <div class="rounded-xl p-4 bg-white flex items-center gap-x-2 mt-5">
+    <img
+      *ngIf="
+        !streakCurrent || streakCurrent?.streak?.currentStreakCount === 0;
+        else flagIcon
+      "
+      [src]="clockIcon"
+      alt="clock"
+    />
+    <ng-template #flagIcon>
+      <img [src]="iconFlag" alt="flag" />
+    </ng-template>
+    <div
+      *ngIf="
+        !streakCurrent || streakCurrent?.streak?.currentStreakCount === 0;
+        else description
+      "
+      class="text-lg font-medium text-gray-500"
+    >
       Học một bài học ngay hôm nay để bắt đầu chuỗi streak mới nào!
     </div>
+    <ng-template #description>
+      <div class="text-lg font-medium text-gray-500">
+        Bạn đang học rất tốt, hãy phát huy nhé
+      </div></ng-template
+    >
   </div>
 </div>
-
+<!-- === Calender === -->
 <div class="p-4">
   <div class="font-semibold text-2xl mb-2">Lịch</div>
   <div class="mx-auto w-full rounded-xl border-[2px] border-[#d9d9d9] p-2">
@@ -19,10 +59,28 @@
       [(ngModel)]="date"
       [(nzMode)]="mode"
       (nzPanelChange)="panelChange($event)"
+      (nzSelectChange)="selectChange($event)"
     >
-      <!-- <div *nzDateCell="let date">
-        <img [src]="streakIcon" alt="streak-icon" />
-      </div> -->
+      <div *nzDateCell="let dateCheck">
+        <ng-container *ngIf="checkIsTheDayHasStreak(dateCheck)">
+          <div
+            class="border rounded-md overflow-hidden flex items-center justify-center mt-1 p-1 w-full"
+          >
+            <img
+              [src]="streakIcon"
+              alt="streak-icon"
+              class="h-4 object-contain"
+            />
+          </div>
+        </ng-container>
+      </div>
     </nz-calendar>
   </div>
 </div>
+
+<ng-template #customHeader>
+  <div style="padding: 8px">
+    <h4>Custom header</h4>
+  </div>
+</ng-template>
+<!-- === End Calender === -->

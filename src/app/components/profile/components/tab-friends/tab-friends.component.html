@@ -1,0 +1,90 @@
+<div>
+  <!-- === Header === -->
+  <div class="flex items-center justify-between py-4">
+    <div
+      (click)="changeTab(Tabs.following)"
+      class="flex-1 uppercase text-base hover:cursor-pointer text-center hover:text-blueColor text-description font-semibold"
+      [ngClass]="
+        tabSelected === Tabs.following
+          ? 'text-blueColor active-tab'
+          : 'text-description not-active-tab'
+      "
+    >
+      đang theo dõi
+    </div>
+    <div
+      (click)="changeTab(Tabs.follower)"
+      class="flex-1 uppercase text-base hover:cursor-pointer text-center hover:text-blueColor text-description font-semibold"
+      [ngClass]="
+        tabSelected === Tabs.follower
+          ? 'text-blueColor active-tab'
+          : 'text-description not-active-tab'
+      "
+    >
+      người theo dõi
+    </div>
+  </div>
+  <!-- End === Header === -->
+  <div class="p-4">
+    <ng-container *ngIf="tabSelected === Tabs.following">
+      <div
+        *ngIf="listFollowings.total > 0; else emptyFollowing"
+        class="flex flex-col gap-y-6 max-h-[300px] overflow-y-auto"
+      >
+        <div *ngFor="let friend of listFollowings.data">
+          <div
+            [ngClass]="anotherUserId ? '' : 'hover'"
+            class="flex items-center gap-x-4"
+            (click)="detailFriend(friend.friendId)"
+          >
+            <img
+              [src]="friend.friend.avatar || anonymousAva"
+              class="overflow-hidden rounded-full w-14 h-14 object-cover"
+            />
+            <div class="flex flex-col gap-y-1">
+              <div class="text-lg font-semibold">
+                {{ friend.friend.fullname }}
+              </div>
+              <div class="text-base text-description">
+                {{ friend.friend.totalExp || 0 }} KN
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #emptyFollowing>
+        <div>Chưa theo dõi người dùng nào</div>
+      </ng-template>
+    </ng-container>
+    <ng-container *ngIf="tabSelected === Tabs.follower">
+      <div
+        *ngIf="listFollowers.total > 0; else emptyFollower"
+        class="flex flex-col gap-y-6 max-h-[300px] overflow-y-auto"
+      >
+        <div *ngFor="let friend of listFollowers.data">
+          <div
+            class="flex items-center gap-x-4"
+            [ngClass]="anotherUserId ? '' : 'hover'"
+            (click)="detailFriend(friend.userId)"
+          >
+            <img
+              [src]="friend.user.avatar || anonymousAva"
+              class="overflow-hidden rounded-full w-14 h-14 object-cover"
+            />
+            <div class="flex flex-col gap-y-1">
+              <div class="text-lg font-semibold">
+                {{ friend.user.fullname }}
+              </div>
+              <div class="text-base text-description">
+                {{ friend.user.totalExp || 0 }} KN
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #emptyFollower>
+        <div>Chưa có người dùng nào theo dõi</div>
+      </ng-template>
+    </ng-container>
+  </div>
+</div>

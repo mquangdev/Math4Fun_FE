@@ -1,7 +1,8 @@
-:host ::ng-deep .ant-modal-body {
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
+::ng-deep .ant-picker-calendar-date {
+  @apply w-full;
 }
-:host ::ng-deep .ant-modal-body {
-  padding: 0px;
+::ng-deep td.ant-picker-cell.ant-picker-cell-in-view.ng-star-inserted {
+  // display: flex;
+  // align-items: start;
+  // justify-content: center;
 }

@@ -1,60 +1,162 @@
 <div
   *ngIf="userInfo"
-  class="border-solid border-b-[1.5px] border-gray-200 py-4 px-2 flex items-start justify-between"
+  class="flex flex-col gap-y-2 border-solid border-b-[1.5px] border-gray-200"
 >
-  <div class="flex items-start gap-x-10 justify-between">
-    <div
-      class="w-[210px] h-[210px] border-solid border-[1.5px] rounded-full flex items-center justify-center relative"
-    >
-      <label
-        for="avatar"
-        style="border: solid 1.5px white"
-        class="absolute top-[20px] right-[16px] bg-blue-500 text-white w-[30px] h-[30px] rounded-full flex items-center justify-center z-10 hover:opacity-70 cursor-pointer"
+  <div class="py-4 px-2 flex items-start justify-between">
+    <div class="flex items-start gap-x-10 justify-between">
+      <div
+        class="w-[210px] h-[210px] border-solid border-[1.5px] rounded-full flex items-center justify-center relative"
       >
-        <i class="fa-solid fa-pen text-sm"></i>
-      </label>
-      <input
-        id="avatar"
-        type="file"
-        accept="png"
-        class="hidden"
-        (change)="changeAvatar($event)"
-      />
-      <img
-        [src]="userInfo.avatar || anoAva"
-        class="w-[210px] h-[210px] rounded-full object-contain"
-        alt=""
-      />
-    </div>
-    <div>
-      <div class="text-2xl font-semibold">{{ userInfo.fullname }}</div>
-      <div class="text-gray-400 font-medium text-base">
-        {{ userInfo.username }}
-      </div>
-      <div class="flex items-center mt-2">
-        <i class="fa-solid fa-clock text-base mr-3 text-gray-400"></i>
-        <span class="text-base text-gray-500"
-          >Đã tham gia từ {{ userInfo.dateJoin | date: "MM/yyyy" }}</span
+        <label
+          *ngIf="!anotherUserId"
+          for="avatar"
+          style="border: solid 1.5px white"
+          class="absolute top-[20px] right-[16px] bg-blue-500 text-white w-[30px] h-[30px] rounded-full flex items-center justify-center z-10 hover:opacity-70 cursor-pointer"
         >
+          <i class="fa-solid fa-pen text-sm"></i>
+        </label>
+        <input
+          id="avatar"
+          type="file"
+          accept="png"
+          class="hidden"
+          (change)="changeAvatar($event)"
+        />
+        <img
+          [src]="userInfo.avatar || anoAva"
+          class="w-[210px] h-[210px] rounded-full object-contain"
+          alt=""
+        />
       </div>
-      <div class="flex items-center mt-2">
-        <i class="fa-solid fa-user-group text-base mr-3 text-gray-400"></i>
-        <span class="text-base text-gray-500">Đang theo dõi 0 bạn bè</span>
-      </div>
-      <div class="mt-6 flex items-center gap-x-3">
-        <div *ngFor="let course of listCourse">
-          <img width="40px" [src]="course.image" alt="" />
+      <div>
+        <div class="text-2xl font-semibold">{{ userInfo.fullname }}</div>
+        <div class="text-gray-400 font-medium text-base">
+          {{ userInfo.username }}
+        </div>
+        <div class="flex items-center mt-2">
+          <i class="fa-solid fa-clock text-base mr-3 text-gray-400"></i>
+          <span class="text-base text-gray-500"
+            >Đã tham gia từ {{ userInfo.dateJoin | date : "MM/yyyy" }}</span
+          >
+        </div>
+        <div class="flex items-center mt-2">
+          <i class="fa-solid fa-user-group text-base mr-3 text-gray-400"></i>
+          <span class="text-base text-gray-500"
+            >Đang theo dõi {{ listFollowings.total || 0 }} bạn bè</span
+          >
+        </div>
+        <div class="flex items-center mt-2">
+          <i class="fa-solid fa-user-group text-base mr-3 text-gray-400"></i>
+          <span class="text-base text-gray-500"
+            >{{ listFollowers.total || 0 }} người đang theo dõi</span
+          >
+        </div>
+        <div class="mt-6 flex items-center gap-x-3">
+          <ng-container *ngIf="listCourse.length > 0; else emptyCourse">
+            <div *ngFor="let course of listCourse">
+              <img width="40px" [src]="course.image" alt="" />
+            </div>
+          </ng-container>
+          <ng-template #emptyCourse>
+            <div>Chưa tham gia khóa học nào</div>
+          </ng-template>
         </div>
       </div>
     </div>
+    <ng-container *ngIf="!anotherUserId">
+      <app-button
+        (click)="editProfile()"
+        text="Sửa hồ sơ"
+        bgButton="#1cb0f6"
+        edge="#1899d6"
+      ></app-button>
+    </ng-container>
   </div>
-
-  <app-button
-    (click)="editProfile()"
-    text="Sửa hồ sơ"
-    bgButton="#1cb0f6"
-    edge="#1899d6"
-  ></app-button>
+  <!-- === Friend information === -->
+  <div *ngIf="friendDetail" class="mb-6">
+    <app-button
+      *ngIf="!friendDetail.isFollowing && !friendDetail.isFollower"
+      text="Theo dõi"
+      width="500px"
+      bgButton="#1cb0f6"
+      edge="#1899d6"
+      textColor="white"
+      [prefix]="prefixAdd"
+      (click)="followUser()"
+    ></app-button>
+    <app-button
+      *ngIf="friendDetail.isFollowing && !friendDetail.isFollower"
+      text="Đang theo dõi"
+      width="500px"
+      bgButton="#1cb0f6"
+      edge="#1899d6"
+      textColor="white"
+      [prefix]="prefix"
+      (click)="unFollowing()"
+    ></app-button>
+    <app-button
+      nz-dropdown
+      *ngIf="!friendDetail.isFollowing && friendDetail.isFollower"
+      text="Theo dõi bạn"
+      width="500px"
+      bgButton="#1cb0f6"
+      edge="#1899d6"
+      textColor="white"
+      [prefix]="prefix"
+      [nzDropdownMenu]="menu2"
+      nzPlacement="bottomCenter"
+      [nzOverlayStyle]="{
+        marginTop: '30px',
+        width: 'fit-content'
+      }"
+      [nzTrigger]="'click'"
+    ></app-button>
+    <app-button
+      nz-dropdown
+      *ngIf="friendDetail.isFollowing && friendDetail.isFollower"
+      text="2 bạn đang theo dõi nhau"
+      width="500px"
+      bgButton="#1cb0f6"
+      edge="#1899d6"
+      textColor="white"
+      [prefix]="prefix"
+      [nzDropdownMenu]="menu"
+      nzPlacement="bottomCenter"
+      [nzOverlayStyle]="{
+        marginTop: '30px',
+        width: 'fit-content'
+      }"
+      [nzTrigger]="'click'"
+    ></app-button>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item (click)="unFollowing()">Huỷ theo dõi</li>
+        <li nz-menu-item (click)="unFollower()">
+          Gỡ người dùng này theo dõi bạn
+        </li>
+        <li nz-menu-item (click)="cancelFromBoth()">Hủy theo dõi cả 2 phía</li>
+      </ul>
+    </nz-dropdown-menu>
+    <nz-dropdown-menu #menu2="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item (click)="unFollower()">
+          Gỡ người dùng này theo dõi bạn
+        </li>
+        <li nz-menu-item (click)="followUser()">Theo dõi</li>
+      </ul>
+    </nz-dropdown-menu>
+    <ng-template #prefix>
+      <div class="ml-auto">
+        <i class="fa-solid fa-user-check"></i>
+      </div>
+    </ng-template>
+    <ng-template #prefixAdd>
+      <div class="ml-auto">
+        <i class="fa-solid fa-user-plus"></i>
+      </div>
+    </ng-template>
+  </div>
+  <!-- === End friend information === -->
 </div>
 <div *ngIf="userInfo" class="grid grid-cols-7 py-3 px-3 gap-x-5">
   <div class="col-span-4">
@@ -69,7 +171,9 @@
           alt=""
         />
         <div>
-          <div class="font-semibold text-lg">10</div>
+          <div class="font-semibold text-lg">
+            {{ (streakCurrent && streakCurrent.currentStreakCount) || 0 }}
+          </div>
           <div class="text-gray-400 text-base">Ngày streak</div>
         </div>
       </div>
@@ -90,5 +194,25 @@
   </div>
   <div class="col-span-3">
     <div class="text-2xl font-semibold">Bạn bè</div>
+    <div class="mt-5 border rounded-xl">
+      <app-tab-friends
+        [listFollowers]="listFollowers"
+        [listFollowings]="listFollowings"
+        [anotherUserId]="anotherUserId"
+      ></app-tab-friends>
+    </div>
+    <div *ngIf="!anotherUserId" class="mt-5 border p-4 rounded-xl">
+      <div class="text-xl font-semibold">Thêm bạn bè</div>
+      <a
+        routerLink="find-user"
+        class="mt-6 flex items-center justify-between rounded-xl cursor-pointer hover:bg-slate-100 p-2 pr-4 text-black"
+      >
+        <div class="flex items-center gap-x-5">
+          <img src="assets/icons/ic-magnifying-glass.svg" alt="glass" />
+          <div class="text-lg font-medium">Tìm bạn bè</div>
+        </div>
+        <i class="fa-solid fa-chevron-right"></i>
+      </a>
+    </div>
   </div>
 </div>

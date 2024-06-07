@@ -9,8 +9,10 @@ import { API_URL } from '../const/url';
 export class StreakService {
   URL = `${API_URL}/Streak`;
   constructor(private httpClient: HttpClient) {}
-  getCurrentStreak(): Observable<any> {
-    return this.httpClient.get(`${this.URL}/CurrentStreak`);
+  getCurrentStreak(anotherUserId?: string): Observable<any> {
+    let url = `${this.URL}/CurrentStreak`;
+    if (anotherUserId) url += `?anotherUserId=${anotherUserId}`;
+    return this.httpClient.get(url);
   }
   getStreakHistory(startDate?: string, endDate?: string): Observable<any> {
     let url = `${this.URL}/GetStreakHistory`;

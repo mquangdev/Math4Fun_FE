@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { KeyStorage } from 'src/app/enums/storage.enums';
 import { LessonService } from 'src/app/services/lesson.service';
 import { NotiService } from 'src/app/services/noti.service';
+import { StreakService } from 'src/app/services/streak.service';
 
 @Component({
   selector: 'app-finish',
@@ -17,7 +18,8 @@ export class FinishComponent implements OnInit {
   constructor(
     private router: Router,
     private lessonService: LessonService,
-    private notiService: NotiService
+    private notiService: NotiService,
+    private streakService: StreakService
   ) {}
   ngOnInit(): void {
     this.completeAudio.src = './../../../../../assets/audio/complete.wav';

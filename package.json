@@ -23,6 +23,7 @@
     "date-fns": "^3.6.0",
     "lottie-web": "^5.11.0",
     "mathjax": "^3.2.2",
+    "moment": "^2.30.1",
     "ng-zorro-antd": "^15.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

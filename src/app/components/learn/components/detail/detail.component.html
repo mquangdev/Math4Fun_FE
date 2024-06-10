@@ -1,4 +1,4 @@
-<ng-container *ngIf="!isFinish">
+<ng-container *ngIf="!isContinueStreak && !isFinish">
   <div class="pt-1 w-full text-center" *ngIf="totalQuestion">
     <div (click)="close()" class="text-left p-1 px-10 cursor-pointer">
       <i class="fa-solid fa-xmark text-2xl text-[#afafaf] hover:opacity-70"></i>
@@ -22,7 +22,9 @@
       </div>
       <span class="uppercase">Lỗi sai trước đây</span>
     </div>
-    <div class="w-[60%] my-8 mx-auto flex items-center justify-center">
+    <div
+      class="w-[60%] my-8 mx-auto flex items-center justify-center !h-[calc(100%_-_240px)]"
+    >
       <div *ngSwitchCase="QuestionType.chooseAnswer" class="w-full">
         <app-type-choose-answer
           style="width: 100%"
@@ -131,10 +133,14 @@
   </ng-container>
   <!-- ---- end check area ---- -->
 </ng-container>
-<ng-container *ngIf="isFinish">
+<ng-container *ngIf="isFinish && !isContinueStreak">
   <app-finish
     [totalExp]="expGained"
     [time]="time"
     [percentCorrect]="percentCorrect"
+    (isContinueStreakUpdate$)="isContinueStreak = $event"
   ></app-finish>
+</ng-container>
+<ng-container *ngIf="isFinish && isContinueStreak">
+  <app-continue-streak></app-continue-streak>
 </ng-container>

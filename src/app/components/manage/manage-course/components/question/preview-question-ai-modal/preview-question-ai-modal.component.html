@@ -1,0 +1,9 @@
+<ng-container *ngIf="data && data.data">
+  <div *ngFor="let question of data.data" class="border-b border-dashed mt-3">
+    <app-question-detail
+      [isPreviewQuestionAI]="true"
+      [questionTypePreview]="data.type"
+      [questionPreview]="question"
+    ></app-question-detail>
+  </div>
+</ng-container>

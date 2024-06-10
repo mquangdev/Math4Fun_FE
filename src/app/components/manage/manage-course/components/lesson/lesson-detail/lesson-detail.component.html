@@ -44,13 +44,10 @@
       <i class="fa-brands fa-slack mr-2"></i>
       <span>Tự động tạo câu hỏi</span>
     </button>
-    <div
-      class="grid grid-cols-5 items-stretch gap-3 mt-3 flex-wrap"
-      *ngIf="lesson"
-    >
+    <div class="flex items-stretch gap-3 mt-3 flex-wrap" *ngIf="lesson">
       <div
         *ngFor="let question of lesson.questionList; index as i"
-        class="flex items-center flex-1"
+        class="flex items-center"
         (click)="detailQuestion(question)"
       >
         <div class="border-hover question">

@@ -6,6 +6,8 @@ import { QuestionType } from 'src/app/enums/question.enums';
 import { NotiService } from 'src/app/services/noti.service';
 import { QuestionService } from 'src/app/services/question.service';
 import { KeyStorage } from 'src/app/enums/storage.enums';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { PreviewQuestionAiModalComponent } from '../preview-question-ai-modal/preview-question-ai-modal.component';
 
 @Component({
   selector: 'app-question-add-ai',
@@ -38,11 +40,13 @@ export class QuestionAddAiComponent {
   });
   public isLoading: boolean = false;
   public lessonId: string = localStorage.getItem(KeyStorage.lesson_id)!;
+  public listQuestionAIGen: any;
   constructor(
     private fb: FormBuilder,
     private noti: NotiService,
     private router: Router,
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private modalService: NzModalService
   ) {}
   onAdd() {
     this.isLoading = true;
@@ -62,24 +66,55 @@ export class QuestionAddAiComponent {
     };
     this.questionService.addQuestionAI(body).subscribe(
       (data) => {
-        this.questionService
-          .addQuestionListToDb(
-            (data || data.questions).map((q: any) => {
-              return {
-                ...q,
-                lessonId: this.lessonId,
-              };
-            })
-          )
-          .subscribe((data) => {
-            this.isLoading = false;
-            this.noti.success('Thêm câu hỏi tự động thành công');
-            this.router.navigate(['/main/manage-course/lesson', this.lessonId]);
-          });
+        this.listQuestionAIGen = data;
+        this.openModalPreview();
       },
       (err) => {
         this.add();
       }
     );
+  }
+  openModalPreview() {
+    let modal = this.modalService.create({
+      nzTitle: 'Xem trước câu hỏi',
+      nzContent: PreviewQuestionAiModalComponent,
+      nzData: {
+        data: this.listQuestionAIGen,
+        type: this.form.value.typeQuestion,
+      },
+      nzOkText: 'Thêm',
+      nzCancelText: 'Hủy',
+      nzOnOk: () => {
+        return true;
+      },
+    });
+    modal.afterClose.subscribe((data) => {
+      if (data) {
+        this.addQuestionListToDb();
+        modal.destroy();
+      } else {
+        this.isLoading = false;
+      }
+    });
+  }
+  addQuestionListToDb() {
+    if (this.listQuestionAIGen) {
+      this.questionService
+        .addQuestionListToDb(
+          (this.listQuestionAIGen || this.listQuestionAIGen.questions).map(
+            (q: any) => {
+              return {
+                ...q,
+                lessonId: this.lessonId,
+              };
+            }
+          )
+        )
+        .subscribe((data) => {
+          this.isLoading = false;
+          this.noti.success('Thêm câu hỏi tự động thành công');
+          this.router.navigate(['/main/manage-course/lesson', this.lessonId]);
+        });
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeyStorage } from 'src/app/enums/storage.enums';
 import { LessonService } from 'src/app/services/lesson.service';
@@ -14,7 +14,11 @@ export class FinishComponent implements OnInit {
   @Input() time!: number;
   @Input() totalExp!: number;
   @Input() percentCorrect!: number;
+  @Output() isContinueStreakUpdate$: EventEmitter<boolean> = new EventEmitter(
+    false
+  );
   private completeAudio = new Audio();
+  public isContinueStreakUpdate: boolean = false;
   constructor(
     private router: Router,
     private lessonService: LessonService,
@@ -27,7 +31,11 @@ export class FinishComponent implements OnInit {
     this.changeStatusLesson();
   }
   continue() {
-    this.router.navigate(['/main/learn']);
+    if (!this.isContinueStreakUpdate) {
+      this.router.navigate(['/main/learn']);
+    } else {
+      this.isContinueStreakUpdate$.emit(true);
+    }
   }
   changeStatusLesson() {
     let body = {
@@ -38,7 +46,11 @@ export class FinishComponent implements OnInit {
       status: true,
     };
     this.lessonService.changeStatusLesson(body).subscribe(
-      (data) => {},
+      (data: { streak: any; isContinueStreakUpdate: boolean }) => {
+        if (data) {
+          this.isContinueStreakUpdate = data.isContinueStreakUpdate;
+        }
+      },
       (err) => {
         this.notiService.warning();
       }

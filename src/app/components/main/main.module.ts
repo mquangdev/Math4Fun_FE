@@ -9,16 +9,13 @@ import { RightBarComponent } from './components/right-bar/right-bar.component';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzCalendarModule } from 'ng-zorro-antd/calendar';
 import { StreakComponent } from './components/right-bar/streak/streak.component';
+import { ReuseableModule } from '../reuseable/reuseable.module';
 @NgModule({
-  declarations: [
-    MainComponent,
-    SidebarComponent,
-    RightBarComponent,
-    StreakComponent,
-  ],
+  declarations: [MainComponent, SidebarComponent, RightBarComponent],
   imports: [
     CommonModule,
     SharedModule,
+    ReuseableModule,
     MainRoutes,
     NzDropDownModule,
     NzBadgeModule,

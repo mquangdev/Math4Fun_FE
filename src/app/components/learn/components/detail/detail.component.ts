@@ -6,6 +6,7 @@ import { QuestionType } from 'src/app/enums/question.enums';
 import { LessonService } from 'src/app/services/lesson.service';
 import { QuestionService } from 'src/app/services/question.service';
 import { RightBarService } from 'src/app/services/right-bar.service';
+import { KeyStorage } from 'src/app/enums/storage.enums';
 
 @Component({
   selector: 'app-detail',
@@ -28,6 +29,7 @@ export class DetailComponent implements OnInit {
   public listWrongIndexQuestion: any[] = [];
   public isHasWrongQuestion: boolean = false;
   public isFinish: boolean = false;
+  public isContinueStreak: boolean = false;
   public percentCorrect: number = 0;
   public time: number = 0;
   private correctSound = new Audio();
@@ -39,7 +41,7 @@ export class DetailComponent implements OnInit {
     private route: ActivatedRoute,
     private lessonService: LessonService,
     private renderer: Renderer2,
-    private router: Router,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.rightbarService.setIsShowBar({
@@ -66,6 +68,7 @@ export class DetailComponent implements OnInit {
   detailLesson() {
     this.lessonService.detail(this.lessonId).subscribe((data) => {
       if (!data || !data.questionList) return;
+      localStorage.setItem(KeyStorage.chapter_id, data.chapterId);
       this.expGained = data.expGained;
       this.listQuestion = data.questionList;
       this.indexQuestionNow = 0;
@@ -139,7 +142,7 @@ export class DetailComponent implements OnInit {
     if (this.questionNow.value) {
       this.questionNow.value = this.questionNow.value.replace(
         /^[$]+|[$]+$/g,
-        '',
+        ''
       );
       console.log(this.questionNow.value);
     }
@@ -188,7 +191,7 @@ export class DetailComponent implements OnInit {
           ((this.totalQuestion -
             (this.listQuestion.length - this.totalQuestion)) *
             100) /
-            this.totalQuestion,
+            this.totalQuestion
         );
       }
       this.stopTime();

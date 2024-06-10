@@ -1,7 +1,12 @@
-<app-header [text]="'Chi tiết câu hỏi'"></app-header>
+<app-header
+  *ngIf="!isPreviewQuestionAI"
+  [text]="'Chi tiết câu hỏi'"
+></app-header>
 <ng-container [ngSwitch]="questionType">
   <ng-container *ngSwitchCase="QuestionType.chooseAnswer">
-    <div class="text-2xl font-semibold my-2">Loại: Câu hỏi - lựa chọn</div>
+    <div class="text-2xl font-semibold my-2" *ngIf="!isPreviewQuestionAI">
+      Loại: Câu hỏi - lựa chọn
+    </div>
     <!--    <app-type-choose-answer></app-type-choose-answer>-->
     <form nz-form nzLayout="vertical">
       <mathjax [content]="question.text!"></mathjax>
@@ -66,7 +71,9 @@
     </form>
   </ng-container>
   <ng-container *ngSwitchCase="QuestionType.choosePair">
-    <div class="text-2xl font-semibold my-2">Loại: Chọn cặp phù hợp</div>
+    <div class="text-2xl font-semibold my-2" *ngIf="!isPreviewQuestionAI">
+      Loại: Chọn cặp phù hợp
+    </div>
     <div>
       <div class="text-xl font-semibold flex items-center gap-x-3">
         <span>Chọn cặp phù hợp</span>
@@ -112,7 +119,7 @@
     </div>
   </ng-container>
   <ng-container *ngSwitchCase="QuestionType.chooseToBlank">
-    <div class="text-2xl font-semibold my-2">
+    <div class="text-2xl font-semibold my-2" *ngIf="!isPreviewQuestionAI">
       Loại: Chọn đáp án vào chỗ trống
     </div>
     <form nz-form nzLayout="vertical">
@@ -198,7 +205,9 @@
     </form>
   </ng-container>
   <ng-container *ngSwitchCase="QuestionType.typeToBlank">
-    <div class="text-2xl font-semibold my-2">Loại: Điền số vào chỗ trống</div>
+    <div class="text-2xl font-semibold my-2" *ngIf="!isPreviewQuestionAI">
+      Loại: Điền số vào chỗ trống
+    </div>
     <div class="flex flex-col gap-y-2">
       <div class="flex items-center gap-x-2">
         <mathjax [content]="question.text!" />
@@ -227,7 +236,7 @@
     </div>
   </ng-container>
 </ng-container>
-<ng-container>
+<ng-container *ngIf="!isPreviewQuestionAI">
   <div class="w-full flex justify-end items-center gap-x-2 mt-3">
     <button nz-button nzType="default">Hủy</button>
     <button nz-button nzType="primary" (click)="update()">Cập nhật</button>

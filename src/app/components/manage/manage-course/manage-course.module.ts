@@ -23,6 +23,8 @@ import { QuestionAddComponent } from './components/question/question-add/questio
 import { QuestionDetailComponent } from './components/question/question-detail/question-detail.component';
 import { ManageCourseComponent } from './manage-course.component';
 import { ManageCourseRoutes } from './manage-course.routing';
+import { ReuseableModule } from '../../reuseable/reuseable.module';
+import { PreviewQuestionAiModalComponent } from './components/question/preview-question-ai-modal/preview-question-ai-modal.component';
 @NgModule({
   declarations: [
     ManageCourseComponent,
@@ -34,9 +36,9 @@ import { ManageCourseRoutes } from './manage-course.routing';
     LessonAddComponent,
     LessonDetailComponent,
     QuestionAddComponent,
-    QuestionDetailComponent,
     CourseRegisterComponent,
     QuestionAddAiComponent,
+    PreviewQuestionAiModalComponent,
   ],
   imports: [
     CommonModule,
@@ -51,6 +53,7 @@ import { ManageCourseRoutes } from './manage-course.routing';
     NzRadioModule,
     NzIconModule,
     RouterModule,
+    ReuseableModule,
   ],
 })
 export class ManageCourseModule {}

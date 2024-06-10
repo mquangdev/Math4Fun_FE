@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuestionType } from 'src/app/enums/question.enums';
 import { QuestionService } from 'src/app/services/question.service';
@@ -10,7 +16,10 @@ import { NotiService } from 'src/app/services/noti.service';
   templateUrl: './question-detail.component.html',
   styleUrls: ['./question-detail.component.scss'],
 })
-export class QuestionDetailComponent implements OnInit {
+export class QuestionDetailComponent implements OnInit, OnChanges {
+  @Input() isPreviewQuestionAI: boolean = false;
+  @Input() questionPreview: Question = new Question();
+  @Input() questionTypePreview!: QuestionType;
   public questionId!: string;
   public questionType!: QuestionType;
   public QuestionType = QuestionType;
@@ -20,8 +29,15 @@ export class QuestionDetailComponent implements OnInit {
     private questionService: QuestionService,
     private route: ActivatedRoute,
     private noti: NotiService,
-    private router: Router,
+    private router: Router
   ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['isPreviewQuestionAI']) {
+      this.questionType = this.questionTypePreview;
+      this.question = this.questionPreview;
+      this.listAnswer = this.question.answerList!;
+    }
+  }
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.questionId = params['id'];
@@ -94,7 +110,7 @@ export class QuestionDetailComponent implements OnInit {
       },
       (err) => {
         this.noti.warning();
-      },
+      }
     );
   }
   updateTypeTypeToBlank() {
@@ -114,7 +130,7 @@ export class QuestionDetailComponent implements OnInit {
       },
       (err) => {
         this.noti.warning();
-      },
+      }
     );
   }
 
@@ -148,7 +164,7 @@ export class QuestionDetailComponent implements OnInit {
       },
       (err) => {
         this.noti.warning();
-      },
+      }
     );
   }
 
@@ -185,7 +201,7 @@ export class QuestionDetailComponent implements OnInit {
       },
       (err) => {
         this.noti.warning();
-      },
+      }
     );
   }
 

@@ -76,7 +76,7 @@
     </div>
     <div>
       <div class="text-xl font-semibold flex items-center gap-x-3">
-        <span>Chọn cặp phù hợp</span>
+        <span>Chọn cặp phù hợp ({{ listAnswer.length }} cặp)</span>
         <i
           (click)="addAnswer()"
           class="fa-solid fa-circle-plus text-3xl hover:opacity-70 cursor-pointer"
@@ -84,27 +84,33 @@
       </div>
       <div class="flex flex-col gap-y-2">
         <ng-container *ngFor="let pair of listAnswer">
-          <div class="grid grid-cols-2 gap-x-5 mt-3">
+          <!-- === View === -->
+          <div class="flex items-center gap-x-5 mt-3">
+            <i class="fa-regular fa-eye"></i>
             <div
               *ngIf="pair.text"
-              class="grow col-span-1 border-solid border-[1.5px] rounded-md border-primary p-2 shadow-sm"
+              class="border-solid border-[1.5px] rounded-md border-primary p-2 shadow-sm w-[500px]"
             >
               <mathjax [content]="pair.text!"></mathjax>
             </div>
             <div
               *ngIf="pair.value"
-              class="grow col-span-1 border-solid border-[1.5px] rounded-md border-primary p-2 shadow-sm"
+              class="border-solid border-[1.5px] rounded-md border-primary p-2 shadow-sm w-[500px]"
             >
               <mathjax [content]="pair.value!"></mathjax>
             </div>
           </div>
+          <!-- === End View === -->
+          <!-- === Edit === -->
           <div class="flex items-center gap-x-5 mt-3">
+            <i class="fa-regular fa-pen-to-square"></i>
             <input
               nz-input
               nzSize="large"
               placeholder="Câu hỏi"
               [(ngModel)]="pair.text"
               [ngModelOptions]="{ standalone: true }"
+              class="!w-[500px]"
             />
             <input
               nz-input
@@ -112,8 +118,16 @@
               placeholder="Câu trả lời"
               [(ngModel)]="pair.value"
               [ngModelOptions]="{ standalone: true }"
+              class="!w-[500px]"
             />
+            <div
+              (click)="remove(pair)"
+              class="p-2 rounded-full bg-red-500 w-8 h-8 flex items-center justify-center text-white hover"
+            >
+              <i class="fa-regular fa-trash-can"></i>
+            </div>
           </div>
+          <!-- === End Edit === -->
         </ng-container>
       </div>
     </div>
